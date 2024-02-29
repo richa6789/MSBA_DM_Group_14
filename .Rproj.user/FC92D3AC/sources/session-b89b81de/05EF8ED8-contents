@@ -1,0 +1,3 @@
+library(RSQLite)
+library(DBI)
+con <- dbConnect(SQLite(), dbname = "ecommerce__group_14.db")

@@ -21,7 +21,7 @@ library(DBI)
 
 ```{r commerce}
 # Creation of database and securing link
-con <- dbConnect(SQLite(), dbname = "ecommerce__group_14.db")
+con <- RSQLite::dbConnect(RSQLite::SQLite(),"DM_project.db")
 
 ```
 
@@ -117,6 +117,8 @@ for (table in tables) {
   print(head(table_content))
 }
 
+# Close the database connection
+dbDisconnect(con)
 ```
 
 
