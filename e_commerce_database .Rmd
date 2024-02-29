@@ -1,0 +1,122 @@
+---
+title: "e_commerce_database"
+output: html_document
+date: "2024-02-29"
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+install.packages("tidyverse")
+install.packages("RSQLite")
+install.packages("DBI")
+```
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(RSQLite)
+library(DBI)
+```
+
+
+```{r commerce}
+# Creation of database and securing link
+con <- dbConnect(SQLite(), dbname = "ecommerce__group_14.db")
+
+```
+
+```{r setup, include=FALSE}
+
+dbExecute(con, "
+CREATE TABLE Supplier (
+    SUPPLIER_ID INTEGER PRIMARY KEY AUTOINCREMENT,
+    SUPPLIER_NAME VARCHAR(100) NOT NULL,
+    SUPPLIER_PHONE VARCHAR(20),
+    SUPPLIER_EMAIL VARCHAR(100)
+)")
+
+dbExecute(con, "
+CREATE TABLE Product (
+    PRODUCT_ID INTEGER PRIMARY KEY AUTOINCREMENT,
+    PRODUCT_NAME VARCHAR(250) NOT NULL,
+    PRODUCT_CATEGORY VARCHAR(50) NOT NULL,
+    PRICE NUMERIC NOT NULL,
+    SUPPLIER_ID INTEGER,
+    FOREIGN KEY(SUPPLIER_ID) REFERENCES Supplier(SUPPLIER_ID)
+)")
+
+dbExecute(con, "
+CREATE TABLE Inventory (
+    PRODUCT_ID INTEGER,
+    STOCK INTEGER NOT NULL,
+    SHELF_NO VARCHAR(20),
+    PRIMARY KEY (PRODUCT_ID),
+    FOREIGN KEY(PRODUCT_ID) REFERENCES Product(PRODUCT_ID)
+)")
+
+dbExecute(con, "
+CREATE TABLE Customer (
+    CUSTOMER_ID INTEGER PRIMARY KEY AUTOINCREMENT,
+    CUSTOMER_FIRSTNAME VARCHAR(50) NOT NULL,
+    CUSTOMER_LASTNAME VARCHAR(50) NOT NULL,
+    CUSTOMER_EMAIL VARCHAR(250) NOT NULL UNIQUE,
+    CUSTOMER_PHONE VARCHAR(50),
+    CUSTOMER_BIRTHDAY DATE,
+    CUSTOMER_GENDER CHAR(1)
+    -- Removed PAYMENT_ID and SHIPMENT_ID from Customer table
+)")
+
+dbExecute(con, "
+CREATE TABLE Shipping (
+    SHIPMENT_ID INTEGER PRIMARY KEY AUTOINCREMENT,
+    CUSTOMER_ID INTEGER NOT NULL,
+    SHIPMENT_DATE DATE,
+    SHIPMENT_ADDRESS VARCHAR(250) NOT NULL,
+    SHIPMENT_CITY VARCHAR(50) NOT NULL,
+    SHIPMENT_COUNTRY VARCHAR(50) NOT NULL,
+    SHIPMENT_ZIPCODE VARCHAR(20) NOT NULL,
+    FOREIGN KEY(CUSTOMER_ID) REFERENCES Customer(CUSTOMER_ID)
+)")
+
+dbExecute(con, "
+CREATE TABLE Payment (
+    PAYMENT_ID INTEGER PRIMARY KEY AUTOINCREMENT,
+    PAYMENT_METHOD VARCHAR(50) NOT NULL,
+    PAYMENT_DATE DATE NOT NULL,
+    CUSTOMER_ID INTEGER,
+    ORDER_AMOUNT NUMERIC NOT NULL,
+    BILLING_ADDRESS VARCHAR(250) NOT NULL,
+    BILLING_CITY VARCHAR(50) NOT NULL,
+    BILLING_COUNTRY VARCHAR(50) NOT NULL,
+    BILLING_ZIPCODE VARCHAR(20) NOT NULL,
+    FOREIGN KEY(CUSTOMER_ID) REFERENCES Customer(CUSTOMER_ID)
+)")
+
+dbExecute(con, "
+CREATE TABLE Ads (
+    AD_ID INTEGER PRIMARY KEY AUTOINCREMENT,
+    AD_CATEGORY VARCHAR(50) NOT NULL,
+    PRODUCT_ID INTEGER,
+    FOREIGN KEY(PRODUCT_ID) REFERENCES Product(PRODUCT_ID)
+)")
+
+
+```
+
+
+```{r commerce}
+# Retrieve table names
+tables <- dbListTables(con)
+print(tables)
+
+# View the content of each table
+for (table in tables) {
+  query <- paste("SELECT * FROM", table)
+  table_content <- dbGetQuery(con, query)
+  cat("Table:", table, "\n")
+  print(head(table_content))
+}
+
+```
+
+
