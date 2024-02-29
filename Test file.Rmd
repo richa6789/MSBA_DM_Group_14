@@ -1,0 +1,5 @@
+
+
+print("hello world")
+print(" Hello Prof.Nikos")
+print("hello everyone")
