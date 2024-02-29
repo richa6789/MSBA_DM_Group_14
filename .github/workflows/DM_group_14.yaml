@@ -32,4 +32,4 @@ jobs:
 
       - name: Execute R script
         run: |
-          Rscript R/regression_plot.R
+          Rscript DM_project e_commerce_database.Rmd
