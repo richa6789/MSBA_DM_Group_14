@@ -33,7 +33,7 @@ jobs:
           Rscript -e 'install.packages(c("tidyverse", "RSQLite"))'
 
       - name: Execute R script
-         run: |
+        run: |
          Rscript "path/to/DM_project e_commerce_database.Rmd"
 
 
