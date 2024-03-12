@@ -32,6 +32,7 @@ jobs:
 
       - name: Execute R script
         run: |
-          Rscript DM_project e_commerce_database.Rmd
+          Rscript "DM_project e_commerce_database.Rmd"
+          
 
 
