@@ -1,8 +1,6 @@
 name: Workflow for group 14
 
 on:
-#  schedule:
-#    - cron: '0 */3 * * *' # Run every 3 hours
   push:
     branches: [main]
 
@@ -38,18 +36,21 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: |
           Rscript -e 'install.packages(c("tidyverse", "RSQLite"))'
-
+          
       - name: Execute R script
         run: |
           Rscript DM_project e_commerce_database.Rmd
+          
       - name: Add files
         run: |
-           git add - -all
+          git add --all
+          
       - name: Commit files
         run: |
-           git commit -m "Update" 
+          git commit -m "Update"
+          
       - name: Push changes
         uses: ad-m/github-push-action@v0.6.0
         with:
-            github_token: ${{ secrets.GITHUB_TOKEN }}
-            branch: main
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main
