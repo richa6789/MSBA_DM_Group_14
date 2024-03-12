@@ -39,4 +39,4 @@ jobs:
 
       - name: Execute R script
         run: |
-          Rscript "path/to/DM_project e_commerce_database.Rmd"
+          Rscript DM_project e_commerce_database.Rmd
