@@ -25,14 +25,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-r-
             
-      - name: Install packages
+      -       - name: Install packages
         if: steps.cache.outputs.cache-hit != 'true'
         run: |
           Rscript -e 'install.packages(c("tidyverse", "RSQLite"))'
-
       - name: Execute R script
         run: |
           Rscript "DM_project e_commerce_database.Rmd"
+
           
 
 
