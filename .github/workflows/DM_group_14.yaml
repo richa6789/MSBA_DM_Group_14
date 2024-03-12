@@ -42,3 +42,12 @@ jobs:
       - name: Execute R script
         run: |
           Rscript DM_project e_commerce_database.Rmd
+      - name: Add files
+        run: |
+      - name: Commit files
+        run: |
+      - name: Push changes
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+            github_token: ${{ secrets.GITHUB_TOKEN }}
+            branch: main
