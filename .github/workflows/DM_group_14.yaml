@@ -34,17 +34,4 @@ jobs:
         run: |
           Rscript DM_project e_commerce_database.Rmd
 
-      - name: Add files
-        run: |
-          git config --global user.email "u5521398@live.warwick.ac.uk"
-          git config --global user.name "AdnanAndar98"
-          
-      - name: Commit files
-        run: |
-          git commit -m "Hasta la vista"
-          
-      - name: Push changes
-        uses: ad-m/github-push-action@v0.6.0
-        with:
-            github_token: ${{ secrets.GITHUB_TOKEN }}
-            branch: main
+
