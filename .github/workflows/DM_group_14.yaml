@@ -44,8 +44,10 @@ jobs:
           Rscript DM_project e_commerce_database.Rmd
       - name: Add files
         run: |
+           git add - -all
       - name: Commit files
         run: |
+           git commit -m "Update" 
       - name: Push changes
         uses: ad-m/github-push-action@v0.6.0
         with:
