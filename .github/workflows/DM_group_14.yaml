@@ -48,8 +48,9 @@ jobs:
       - name: Commit files
         run: |
          git config --global user.email "angeliki.konomi@warwick.ac.uk"
-         git config --global user.name "Your Name"
-         git commit -m "Update"
+         git config --global user.name "Group 14"
+         git add --all
+         git commit -m "Update" || true
 
       - name: Push changes
         uses: ad-m/github-push-action@v0.6.0
