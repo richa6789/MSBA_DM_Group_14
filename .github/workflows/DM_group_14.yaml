@@ -24,7 +24,7 @@ jobs:
       - name: Install packages
         if: steps.cache.outputs.cache-hit != 'true'
         run: |
-          Rscript -e 'install.packages(c("tidyverse", "RSQLite", "DBI", "readxl", ))'
+          Rscript -e 'install.packages(c("tidyverse", "RSQLite", "DBI", "readxl"))'
       - name: Execute R Markdown script
         run: Rscript -e 'rmarkdown::render("Prep.Rmd")'
         working-directory: DM_project
