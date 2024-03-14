@@ -24,19 +24,28 @@ jobs:
         with:
           r-version: '4.2.0'
 
-      - name: Cache R packages
-        uses: actions/cache@v2
-        with:
-          path: ${{ env.R_LIBS_USER }}
-          key: ${{ runner.os }}-r-${{ hashFiles('**/lockfile') }}
-          restore-keys: |
-            ${{ runner.os }}-r-
-
       - name: Install packages
         if: steps.cache.outputs.cache-hit != 'true'
         run: |
-          Rscript -e 'install.packages(c("tidyverse", "RSQLite"))'
+          Rscript -e 'install.packages(c("tidyverse", "RSQLite", "DBI", "readxl"))'
 
-      - name: Execute R script
+      - name: Execute R Markdown script
         run: |
-          Rscript DM_project e_commerce_database.Rmd
+          Rscript -e 'rmarkdown::render("DM_project/Prep.Rmd")'
+
+      - name: Configure Git
+        run: |
+          git config --global user.email "u5521398@live.warwick.ac.uk"
+          git config --global user.name "AdnanAndar98"
+
+      - name: Commit updated database
+        run: |
+          git add DM_project/e_commerce_database.db
+          git commit -m "Update database with new data" || echo "No changes to commit"
+          git push origin main
+
+      - name: Push changes
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+            github_token: ${{ secrets.GITHUB_TOKEN }}
+            branch: main
