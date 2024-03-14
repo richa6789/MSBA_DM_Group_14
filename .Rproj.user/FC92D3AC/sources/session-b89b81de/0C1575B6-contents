@@ -54,6 +54,8 @@ CREATE TABLE Inventory (
     FOREIGN KEY(PRODUCT_ID) REFERENCES Product(PRODUCT_ID)
 )")
 
+# -- Removed PAYMENT_ID and SHIPMENT_ID from Customer table
+
 dbExecute(con, "
 CREATE TABLE Customer (
     CUSTOMER_ID INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -63,8 +65,23 @@ CREATE TABLE Customer (
     CUSTOMER_PHONE VARCHAR(50),
     CUSTOMER_BIRTHDAY DATE,
     CUSTOMER_GENDER CHAR(1)
-    -- Removed PAYMENT_ID and SHIPMENT_ID from Customer table
 )")
+
+dbExecute(con, "
+CREATE TABLE Order(
+    ORDER_ID INTEGER PRIMARY KEY AUTOINCREMENT,
+    CUSTOMER_ID INTEGER NOT NULL,
+    PRODUCT_ID INTEGER NOT NULL, 
+    ORDER_DATE DATE NOT NULL,
+    TOTAL_AMOUNT NUMERIC NOT NULL,
+    SHIPPING_ADDRESS VARCHAR(250) NOT NULL,
+    SHIPPING_CITY VARCHAR(50) NOT NULL,
+    SHIPPING_COUNTRY VARCHAR(50) NOT NULL,
+    SHIPPING_ZIPCODE VARCHAR(20) NOT NULL,
+    FOREIGN KEY(CUSTOMER_ID) REFERENCES Customer(CUSTOMER_ID),
+    FOREIGN KEY(PRODUCT_ID) REFERENCES Product(PRODUCT_ID)
+)")
+
 
 dbExecute(con, "
 CREATE TABLE Shipping (
@@ -92,13 +109,9 @@ CREATE TABLE Payment (
     FOREIGN KEY(CUSTOMER_ID) REFERENCES Customer(CUSTOMER_ID)
 )")
 
-dbExecute(con, "
-CREATE TABLE Ads (
-    AD_ID INTEGER PRIMARY KEY AUTOINCREMENT,
-    AD_CATEGORY VARCHAR(50) NOT NULL,
-    PRODUCT_ID INTEGER,
-    FOREIGN KEY(PRODUCT_ID) REFERENCES Product(PRODUCT_ID)
-)")
+
+
+# should we include or delete and Adding a PRODUCT_ID foreign key directly in the Customer table implies that each customer is associated with only one product, which is unrealistic for most e-commerce scenarios where customers can purchase multiple products.
 
 
 ```
@@ -120,5 +133,24 @@ for (table in tables) {
 # Close the database connection
 dbDisconnect(con)
 ```
+
+
+```{r commerce}
+
+
+```
+
+
+
+
+```{r commerce}
+
+
+```
+
+
+
+
+
 
 
