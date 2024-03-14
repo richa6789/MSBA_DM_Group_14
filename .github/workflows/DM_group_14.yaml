@@ -30,8 +30,8 @@ jobs:
           Rscript -e 'install.packages(c("tidyverse", "RSQLite", "DBI", "readxl"))'
 
       - name: Execute R Markdown script
-        run: |
-          Rscript -e 'rmarkdown::render("DM_project/Prep.Rmd")'
+        run: Rscript -e 'rmarkdown::render("Prep.Rmd")'
+        working-directory: DM_project
 
       - name: Configure Git
         run: |
