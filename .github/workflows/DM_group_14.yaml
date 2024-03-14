@@ -10,7 +10,7 @@ jobs:
     defaults:
       run:
         shell: bash
-    steps:
+  steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
