@@ -25,7 +25,7 @@ jobs:
             ${{ runner.os }}-r-
 
       - name: Install R packages
-        run: Rscript -e 'install.packages(c("DBI", "RSQLite", "ggplot2", "lubridate","readr"), dependencies = TRUE)'
+        run: Rscript -e 'install.packages(c("DBI", "RSQLite", "ggplot2", "lubridate","readr", "tidyverse"), dependencies = TRUE)'
 
       - name: Install pandoc
         run: |
