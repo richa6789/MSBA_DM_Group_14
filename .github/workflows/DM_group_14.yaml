@@ -40,20 +40,3 @@ jobs:
       - name: Execute R script
         run: |
           Rscript DM_project e_commerce_database.Rmd
-
-      - name: Add files
-        run: |
-          git add --all
-
-      - name: Commit files
-        run: |
-          git config --global user.email "angeliki.konomi@warwick.ac.uk"
-          git config --global user.name "Group 14"
-          git add --all
-          git commit -m "Update" || true
-
-      - name: Push changes
-        uses: ad-m/github-push-action@v0.6.0
-        with:
-          github_token: ${{ secrets.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 }}
-          branch: main
