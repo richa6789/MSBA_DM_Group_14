@@ -26,7 +26,7 @@ jobs:
         run: |
           Rscript -e 'install.packages(c("tidyverse", "RSQLite", "DBI", "readxl"))'
       - name: Execute R Markdown script
-        run: Rscript -e 'rmarkdown::render("Prep.Rmd")'
+        run: Rscript -e 'rmarkdown::render("Prep.Rmd", output_format = "html_document", output_options = list(pandoc_version = "2.0.6"))'
         working-directory: DM_project
       - name: Configure Git
         run: |
