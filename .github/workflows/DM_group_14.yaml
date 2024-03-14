@@ -24,7 +24,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-r-
 
-      - name: Install packages
+      - name: Install R packages
         if: steps.cache.outputs.cache-hit != 'true'
         run: |
           Rscript -e 'install.packages(c("tidyverse", "RSQLite", "DBI", "readxl"))'
