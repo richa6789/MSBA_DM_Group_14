@@ -8,7 +8,10 @@ editor_options:
 
 ```{r setup, include=FALSE}
 
-library(tidyverse)
+library(dplyr)
+library(lubridate)
+library(ggplot2)
+library(readr)
 library(RSQLite)
 library(DBI)
 library(readxl)
