@@ -20,7 +20,7 @@ library(readxl)
 
 ```{r}
 
-db <- dbConnect(RSQLite::SQLite(), dbname = "e_commerce_database")
+db <- dbConnect(RSQLite::SQLite(), dbname = "e_commerce_database.db")
 
 # Token(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)
 ```
@@ -120,7 +120,7 @@ inventory_data <- read_excel('inventory_ecommerce.xlsx')
 customers_data <- read_excel('customers_ecommerce.xlsx')
 shipment_data <- read_excel('shipment_ecommerce.xlsx')
 payments_data <- read_excel('payments_ecommerce.xlsx')
-ads_data <- read_excel('ads_ecommerce.xlsx')
+#ads removed
 ```
 
 ```{r}
@@ -211,7 +211,7 @@ print(distinct_categories)
 ```
 
 ```{r}
-db <- dbConnect(RSQLite::SQLite(), dbname = "your_database_name.sqlite")
+
 
 products_with_suppliers <- dbGetQuery(db, "
   SELECT p.PRODUCT_ID, p.PRODUCT_NAME, p.PRICE, s.SUPPLIER_NAME 
