@@ -22,7 +22,7 @@ library(readxl)
 
 db <- dbConnect(RSQLite::SQLite(), dbname = "e_commerce_database.db")
 
-# Token(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)
+# Token(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)
 ```
 
 
