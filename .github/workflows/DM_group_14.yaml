@@ -26,16 +26,11 @@ jobs:
 
       - name: Install R packages
         run: Rscript -e 'install.packages(c("DBI", "RSQLite", "ggplot2", "lubridate","readr"), dependencies = TRUE)'
-
-      - name: Install pandoc
+        
+      - name: Execute R script
         run: |
-           sudo apt update
-           sudo apt install -y pandoc
-
-      - name: Execute R Markdown script
-        run: Rscript -e 'rmarkdown::render("Prep.Rmd")'
+          Rscript Prep.R
         working-directory: DM_project
-
       - name: Configure Git
         run: |
           git config --global user.email "u5521398@live.warwick.ac.uk"
