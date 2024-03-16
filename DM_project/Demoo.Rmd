@@ -1,0 +1,148 @@
+---
+title: "Demo"
+output: html_document
+date: "2024-03-16"
+editor_options: 
+  chunk_output_type: inline
+---
+
+```{r }
+library(dplyr)
+library(lubridate)
+library(ggplot2)
+library(readr)
+library(RSQLite)
+library(DBI)
+library(readxl)
+
+```
+
+```{r}
+db <- RSQLite::dbConnect(RSQLite::SQLite(), "e_commerce_database")
+```
+
+
+```{sql connection=db}
+CREATE TABLE IF NOT EXISTS Supplier (
+  SUPPLIER_ID VARCHAR(255) PRIMARY KEY NOT NULL,
+  SUPPLIER_NAME VARCHAR(255) NOT NULL,
+  SUPPLIER_PHONE VARCHAR(255),
+  SUPPLIER_EMAIL VARCHAR(255)
+);
+
+CREATE TABLE IF NOT EXISTS Product (
+  PRODUCT_ID VARCHAR(255) PRIMARY KEY NOT NULL,
+  PRODUCT_NAME VARCHAR(255) NOT NULL,
+  PRODUCT_CATEGORY VARCHAR(255),
+  PRICE FLOAT NOT NULL,
+  SUPPLIER_ID VARCHAR(255) NOT NULL,
+  FOREIGN KEY(SUPPLIER_ID) REFERENCES Supplier(SUPPLIER_ID)
+);
+
+CREATE TABLE IF NOT EXISTS Inventory (
+  INVENTORY_ID VARCHAR(255) PRIMARY KEY NOT NULL,
+  STOCK INTEGER NOT NULL,
+  SHELF_NO VARCHAR(255),
+  PRODUCT_ID VARCHAR(255) NOT NULL,
+  FOREIGN KEY(PRODUCT_ID) REFERENCES Product(PRODUCT_ID)
+);
+
+CREATE TABLE IF NOT EXISTS Customer (
+  CUSTOMER_ID VARCHAR(255) PRIMARY KEY NOT NULL,
+  CUSTOMER_FIRSTNAME VARCHAR(255) NOT NULL,
+  CUSTOMER_LASTNAME VARCHAR(255) NOT NULL,
+  CUSTOMER_EMAIL VARCHAR(255),
+  CUSTOMER_PHONE VARCHAR(255),
+  CUSTOMER_BIRTHDAY DATE,
+  CUSTOMER_GENDER VARCHAR(50),
+  SHIPMENT_ID VARCHAR(255),
+  PAYMENT_ID VARCHAR(255)
+);
+
+CREATE TABLE IF NOT EXISTS Shipment (
+  SHIPMENT_ID VARCHAR(255) PRIMARY KEY NOT NULL,
+  SHIPMENT_DATE DATE NOT NULL,
+  SHIPMENT_ADDRESS VARCHAR(255) NOT NULL,
+  SHIPMENT_CITY VARCHAR(255) NOT NULL,
+  SHIPMENT_ZIPCODE VARCHAR(255) NOT NULL,
+  BILLING_COUNTRY VARCHAR(255) NOT NULL,
+  CUSTOMER_ID VARCHAR(255) NOT NULL,
+  PRODUCT_ID VARCHAR(255) NOT NULL,
+  FOREIGN KEY(CUSTOMER_ID) REFERENCES Customer(CUSTOMER_ID),
+  FOREIGN KEY(PRODUCT_ID) REFERENCES Product(PRODUCT_ID)
+);
+
+CREATE TABLE IF NOT EXISTS Payment (
+  PAYMENT_ID VARCHAR(255) PRIMARY KEY NOT NULL,
+  PAYMENT_METHOD VARCHAR(255) NOT NULL,
+  ORDER_AMOUNT FLOAT NOT NULL,
+  PAYMENT_DATE DATE NOT NULL,
+  BILLING_ADDRESS VARCHAR(255) NOT NULL,
+  BILLING_CITY VARCHAR(255) NOT NULL,
+  BILLING_ZIPCODE VARCHAR(255) NOT NULL,
+  BILLING_COUNTRY VARCHAR(255) NOT NULL,
+  CUSTOMER_ID VARCHAR(255) NOT NULL,
+  PRODUCT_ID VARCHAR(255) NOT NULL,
+  FOREIGN KEY(CUSTOMER_ID) REFERENCES Customer(CUSTOMER_ID),
+  FOREIGN KEY(PRODUCT_ID) REFERENCES Product(PRODUCT_ID)
+);
+
+```
+
+```{r}
+suppliers_data <- read_csv('supplier_ecommerce.csv')
+products_data <- read_csv('products_ecommerce.csv')
+inventories_data <- read_csv('inventory_ecommerce.csv')
+customers_data <- read_csv('customers_ecommerce.csv')
+shipments_data <- read_csv('shipment_ecommerce.csv')
+payments_data <- read_csv('payments_ecommerce.csv')
+```
+
+```{r}
+dbWriteTable(db, "Supplier", suppliers_data, overwrite = TRUE)
+dbWriteTable(db, "Product", products_data, overwrite = TRUE)
+dbWriteTable(db, "Inventory", inventories_data, overwrite = TRUE)
+dbWriteTable(db, "Customer", customers_data, overwrite = TRUE)
+dbWriteTable(db, "Shipment", shipments_data, overwrite = TRUE)
+dbWriteTable(db, "Payment", payments_data, overwrite = TRUE)
+```
+
+```{r}
+# List all tables
+tables <- dbListTables(db)
+print(tables)
+```
+# lets start doing querying from easy to a bit complicated ones
+```{sql connection=db}
+SELECT * FROM CUSTOMER;
+```
+
+# lets try specific columns
+```{sql connection=db}
+SELECT CUSTOMER_ID, CUSTOMER_FIRSTNAME, CUSTOMER_LASTNAME FROM CUSTOMER;
+```
+
+# Lets see PRODUCTS and their prices
+```{sql connection=db}
+SELECT PRODUCT_NAME, PRICE FROM PRODUCT;
+```
+
+# lets use wildcard expression and Limit with it
+```{sql connection=db}
+SELECT * FROM SUPPLIER LIMIT 5;
+```
+
+
+```{sql connection=db}
+SELECT PRICE FROM 
+
+```
+
+
+
+```{sql connection=db}
+
+
+```
+
+
