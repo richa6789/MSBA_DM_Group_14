@@ -102,12 +102,12 @@ payments_data <- read_csv('payments_ecommerce.csv')
 
 
 # Write the data frames to the SQLite database
-dbWriteTable(db, 'Supplier', suppliers_data, append = TRUE, overwrite = TRUE)
-dbWriteTable(db, 'Product', products_data, append = TRUE, overwrite = TRUE)
-dbWriteTable(db, 'Inventory', inventory_data, append = TRUE, overwrite = TRUE)
-dbWriteTable(db, 'Customer', customers_data, append = TRUE, overwrite = TRUE)
-dbWriteTable(db, 'Shipping', shipment_data, append = TRUE, overwrite = TRUE)
-dbWriteTable(db, 'Payment', payments_data, append = TRUE, overwrite = TRUE)
+dbWriteTable(db, 'Supplier', suppliers_data, append = FALSE, overwrite = TRUE)
+dbWriteTable(db, 'Product', products_data, append = FALSE, overwrite = TRUE)
+dbWriteTable(db, 'Inventory', inventory_data, append = FALSE, overwrite = TRUE)
+dbWriteTable(db, 'Customer', customers_data, append = FALSE, overwrite = TRUE)
+dbWriteTable(db, 'Shipping', shipment_data, append = FALSE, overwrite = TRUE)
+dbWriteTable(db, 'Payment', payments_data, append = FALSE, overwrite = TRUE)
 
 #consider Ads
 #dbWriteTable(db, 'Ads', ads_data, append = TRUE, overwrite = FALSE)
