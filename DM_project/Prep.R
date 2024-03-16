@@ -9,7 +9,7 @@ library(readxl)
 
 
 db <- dbConnect(RSQLite::SQLite(), dbname = "e_commerce_database.db")
-
+# consider changing above to the way nikois do in his class
 # Token(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)
 
 
@@ -102,12 +102,12 @@ payments_data <- read_csv('payments_ecommerce.csv')
 
 
 # Write the data frames to the SQLite database
-dbWriteTable(db, 'Supplier', suppliers_data, append = TRUE, overwrite = FALSE)
-dbWriteTable(db, 'Product', products_data, append = TRUE, overwrite = FALSE)
-dbWriteTable(db, 'Inventory', inventory_data, append = TRUE, overwrite = FALSE)
-dbWriteTable(db, 'Customer', customers_data, append = TRUE, overwrite = FALSE)
-dbWriteTable(db, 'Shipping', shipment_data, append = TRUE, overwrite = FALSE)
-dbWriteTable(db, 'Payment', payments_data, append = TRUE, overwrite = FALSE)
+dbWriteTable(db, 'Supplier', suppliers_data, append = TRUE, overwrite = TRUE)
+dbWriteTable(db, 'Product', products_data, append = TRUE, overwrite = TRUE)
+dbWriteTable(db, 'Inventory', inventory_data, append = TRUE, overwrite = TRUE)
+dbWriteTable(db, 'Customer', customers_data, append = TRUE, overwrite = TRUE)
+dbWriteTable(db, 'Shipping', shipment_data, append = TRUE, overwrite = TRUE)
+dbWriteTable(db, 'Payment', payments_data, append = TRUE, overwrite = TRUE)
 
 #consider Ads
 #dbWriteTable(db, 'Ads', ads_data, append = TRUE, overwrite = FALSE)
@@ -172,6 +172,8 @@ products_with_suppliers <- dbGetQuery(db, "
 
 print(products_with_suppliers)
 
+
+db
 
 
 dbDisconnect(db)
