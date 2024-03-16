@@ -1,0 +1,151 @@
+PRODUCT_ID,PRODUCT_NAME,PRODUCT_CATEGORY,PRICE,SUPPLIER_ID
+P001,iPhone 13 Pro,Electronics,999,S001
+P002,Samsung Galaxy Book,Electronics,1099,S001
+P003,Sony WH-1000XM4,Electronics,349,S001
+P004,Apple Watch Series 7,Electronics,399,S001
+P005,PlayStation 5,Electronics,499,S001
+P006,Canon EOS R5,Electronics,3899,S001
+P007,iPad Air,Electronics,599,S001
+P008,HP DeskJet 2755,Electronics,89,S001
+P009,Ring Alarm,Electronics,199,S001
+P010,Anker PowerCore,Electronics,49,S001
+P011,Nike Air Max 270,Apparel,150,S002
+P012,Levi's 501 Jeans,Apparel,59,S002
+P013,Floral Maxi Dress,Apparel,69,S002
+P014,North Face Jacket,Apparel,199,S002
+P015,Adidas Ultraboost,Apparel,180,S002
+P016,Converse Chuck Tayler,Apparel,55,S002
+P017,Fedora Hat,Apparel,25,S002
+P018,Ray-Ban Aviators,Apparel,175,S002
+P019,Casio G-Shock,Apparel,100,S002
+P020,Cashmere Scarf,Apparel,80,S002
+P021,Cuisinart Cookware Set,Home & Kitchen,199,S003
+P022,Corelle Dinnerware Set,Home & Kitchen,49,S003
+P023,KitchenAid Mixer,Home & Kitchen,399,S003
+P024,IKEA Furniture Set,Home & Kitchen,799,S003
+P025,Tempur-Pedic Bedding,Home & Kitchen,149,S003
+P026,Blackout Curtains,Home & Kitchen,39,S003
+P027,Throw Pillows,Home & Kitchen,20,S003
+P028,Dyson Vacuum Cleaner,Home & Kitchen,399,S003
+P029,Monstera Plant,Home & Kitchen,49,S003
+P030,Philips Hue Lights,Home & Kitchen,129,S003
+P031,Trek Bicycle,Sports & Outdoors,599,S004
+P032,Coleman Camping Tent,Sports & Outdoors,99,S004
+P033,Bowflex Treadmill,Sports & Outdoors,1499,S004
+P034,Salomon Hiking Boots,Sports & Outdoors,150,S004
+P035,Shimano Fishing Rod,Sports & Outdoors,99,S004
+P036,Lululemon Yoga Mat,Sports & Outdoors,79,S004
+P037,Callaway Golf Clubs,Sports & Outdoors,999,S004
+P038,Wilson Tennis Racket,Sports & Outdoors,79,S004
+P039,Osprey Backpack,Sports & Outdoors,120,S004
+P040,Bushnell Binoculars,Sports & Outdoors,99,S004
+P041,Clinique Skincare Set,Beauty & Personal Care,99,S005
+P042,MAC Makeup Kit,Beauty & Personal Care,49,S005
+P043,Olaplex Hair Treatment,Beauty & Personal Care,28,S005
+P044,Chanel Perfume,Beauty & Personal Care,100,S005
+P045,Bath & Body Works Set,Beauty & Personal Care,30,S005
+P046,Gillette Shaving Kit,Beauty & Personal Care,20,S005
+P047,OPI Nail Polish,Beauty & Personal Care,10,S005
+P048,Oral-B Toothbrush,Beauty & Personal Care,50,S005
+P049,Dyson Hair Straightener,Beauty & Personal Care,499,S005
+P050,GlamGlow Face Mask,Beauty & Personal Care,60,S005
+P051,"""1984"" by George Orwell",Books & Media,10,S006
+P052,"""Sapiens"" by Yuval Noah Harari",Books & Media,15,S006
+P053,"""The Godfather"" DVD",Books & Media,7,S006
+P054,"""Inception"" Blu-ray",Books & Media,12,S006
+P055,"""Thriller"" by Michael Jackson",Books & Media,10,S006
+P056,"""Harry Potter"" Audiobook",Books & Media,25,S006
+P057,LEGO Star Wars Set,Books & Media,79,S006
+P058,Monopoly Board Game,Books & Media,20,S006
+P059,Moleskine Journal,Books & Media,15,S006
+P060,Marvel Comics,Books & Media,5,S006
+P061,Barbie Doll,Toys & Games,20,S007
+P062,LEGO Technic Set,Toys & Games,99,S007
+P063,Rubik's Cube,Toys & Games,15,S007
+P064,Melissa & Doug Puzzle,Toys & Games,10,S007
+P065,LEGO Classic Set,Toys & Games,29,S007
+P066,Beanie Boo Stuffed Animal,Toys & Games,8,S007
+P067,Watercolor Paint Set,Toys & Games,20,S007
+P068,LEGO Architecture Set,Toys & Games,59,S007
+P069,LeapFrog Learning Tablet,Toys & Games,99,S007
+P070,Settlers of Catan Board Game,Toys & Games,35,S007
+P071,Centrum Multivitamins,Health & Wellness,15,S008
+P072,Fitbit Charge 5,Health & Wellness,179,S008
+P073,Resistance Loop Bands,Health & Wellness,12,S008
+P074,Manduka Yoga Mat,Health & Wellness,79,S008
+P075,Homedics Massager,Health & Wellness,49,S008
+P076,Headspace Subscription,Health & Wellness,69,S008
+P077,Optimum Nutrition Gold Standard Whey,Health & Wellness,57,S008
+P078,doTERRA Essential Oils,Health & Wellness,35,S008
+P079,Hydro Flask Water Bottle,Health & Wellness,39,S008
+P080,Traditional Medicinals Herbal Tea,Health & Wellness,5,S008
+P081,Purina Dog Food,Pets,20,S009
+P082,Whiskas Cat Food,Pets,15,S009
+P083,Kong Dog Toy,Pets,10,S009
+P084,Furhaven Pet Bed,Pets,30,S009
+P085,Ruffwear Dog Collar,Pets,20,S009
+P086,FURminator Grooming Kit,Pets,40,S009
+P087,Tetra Aquarium Kit,Pets,50,S009
+P088,Prevue Bird Cage,Pets,100,S009
+P089,Kaytee Small Animal Habitat,Pets,35,S009
+P090,Exo Terra Reptile Supplies,Pets,25,S009
+P091,Pampers Diapers,Baby & Kids,30,S010
+P092,Enfamil Baby Formula,Baby & Kids,25,S010
+P093,Carter's Baby Clothing,Baby & Kids,15,S010
+P094,Graco Stroller,Baby & Kids,150,S010
+P095,Britax Car Seat,Baby & Kids,250,S010
+P096,Owlet Baby Monitor,Baby & Kids,299,S010
+P097,Melissa & Doug Toys,Baby & Kids,20,S010
+P098,Lansinoh Nursing Pads,Baby & Kids,10,S010
+P099,IKEA Kids Furniture,Baby & Kids,99,S010
+P100,Dr. Seuss Books,Baby & Kids,8,S010
+P101,Diamond Necklace,Jewelry & Accessories,5000,S011
+P102,Pearl Earrings,Jewelry & Accessories,2000,S011
+P103,Gold Bracelet,Jewelry & Accessories,1500,S011
+P104,Sapphire Ring,Jewelry & Accessories,3000,S011
+P105,Rolex Watch,Jewelry & Accessories,10000,S011
+P106,Oakley Sunglasses,Jewelry & Accessories,150,S011
+P107,Cashmere Scarf,Jewelry & Accessories,200,S011
+P108,Michael Kors Handbag,Jewelry & Accessories,300,S011
+P109,Gucci Wallet,Jewelry & Accessories,500,S011
+P110,Louis Vuitton Belt,Jewelry & Accessories,700,S011
+P111,Fresh Produce,Food & Groceries,50,S012
+P112,Organic Milk,Food & Groceries,4,S012
+P113,Grass-fed Beef,Food & Groceries,10,S012
+P114,Frozen Pizza,Food & Groceries,6,S012
+P115,Lay's Potato Chips,Food & Groceries,3,S012
+P116,Coca-Cola,Food & Groceries,2,S012
+P117,Heinz Ketchup,Food & Groceries,3,S012
+P118,Bob's Red Mill Flour,Food & Groceries,5,S012
+P119,Campbell's Soup,Food & Groceries,2,S012
+P120,Cheerios Cereal,Food & Groceries,4,S012
+P121,Pilot G2 Pen,Office Supplies,2,S013
+P122,Moleskine Notebook,Office Supplies,20,S013
+P123,Desk Organizer Set,Office Supplies,15,S013
+P124,Steelcase Filing Cabinet,Office Supplies,150,S013
+P125,HP LaserJet Printer,Office Supplies,250,S013
+P126,Crane Stationery Set,Office Supplies,10,S013
+P127,Post-it Sticky Notes,Office Supplies,5,S013
+P128,Texas Instruments Calculator,Office Supplies,15,S013
+P129,Quartet Whiteboard,Office Supplies,50,S013
+P130,Herman Miller Office Chair,Office Supplies,1000,S013
+P131,Car Engine Oil,Automotive,30,S014
+P132,Michelin Tires,Automotive,150,S014
+P133,Meguiar's Car Wash Kit,Automotive,20,S014
+P134,Garmin GPS Navigation,Automotive,200,S014
+P135,JBL Car Audio System,Automotive,100,S014
+P136,NOCO Jump Starter,Automotive,80,S014
+P137,Yakima Roof Rack,Automotive,500,S014
+P138,WeatherTech Car Cover,Automotive,100,S014
+P139,VAVA Dash Cam,Automotive,100,S014
+P140,Bosch Car Battery,Automotive,150,S014
+P141,Acrylic Paint Set,Crafts & DIY,25,S015
+P142,Singer Sewing Machine,Crafts & DIY,300,S015
+P143,Knit Picks Knitting Needles,Crafts & DIY,15,S015
+P144,Cricut Scrapbooking Machine,Crafts & DIY,200,S015
+P145,DeWalt Woodworking Tools,Crafts & DIY,400,S015
+P146,CandleScience Candle Making Kit,Crafts & DIY,50,S015
+P147,Beadaholique Jewelry Making Kit,Crafts & DIY,40,S015
+P148,Revell Model Kit,Crafts & DIY,30,S015
+P149,Fabric by the Yard,Crafts & DIY,10,S015
+P150,Elmer's Glue,Crafts & DIY,5,S015

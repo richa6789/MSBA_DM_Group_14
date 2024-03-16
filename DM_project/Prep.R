@@ -1,13 +1,3 @@
----
-title: "Prep"
-output: html_document
-date: "2024-03-13"
-editor_options: 
-  chunk_output_type: console
----
-
-```{r setup, include=FALSE}
-
 library(dplyr)
 library(lubridate)
 library(ggplot2)
@@ -16,17 +6,13 @@ library(RSQLite)
 library(DBI)
 library(readxl)
 
-```
 
-```{r}
 
 db <- dbConnect(RSQLite::SQLite(), dbname = "e_commerce_database.db")
 
 # Token(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)
-```
 
 
-```{r pressure, echo=FALSE}
 
 # Create Supplier table
 dbExecute(db, "CREATE TABLE Supplier (
@@ -98,32 +84,23 @@ dbExecute(db, "CREATE TABLE Payment (
   FOREIGN KEY(PRODUCT_ID) REFERENCES Product(PRODUCT_ID)
 )")
 
-# Create Ads table
-dbExecute(db, "CREATE TABLE Ads (
-  AD_ID TEXT,
-  AD_CATEGORY TEXT,
-  PRODUCT_ID TEXT,
-  PRIMARY KEY (AD_ID, PRODUCT_ID),
-  FOREIGN KEY(PRODUCT_ID) REFERENCES Product(PRODUCT_ID)
-)")
 
 
-```
 
-```{r}
 
 # Read Excel files into R data frames
 # Replace 'path_to_excel_file.xlsx' with the actual path to your Excel files
-suppliers_data <- read_excel('supplier_ecommerce.xlsx')
-products_data <- read_excel('products_ecommerce.xlsx')
-inventory_data <- read_excel('inventory_ecommerce.xlsx')
-customers_data <- read_excel('customers_ecommerce.xlsx')
-shipment_data <- read_excel('shipment_ecommerce.xlsx')
-payments_data <- read_excel('payments_ecommerce.xlsx')
-#ads removed
-```
+# Read CSV files into R data frames
+# Replace the paths with the actual paths to your CSV files
+suppliers_data <- read_csv('supplier_ecommerce.csv')
+products_data <- read_csv('products_ecommerce.csv')
+inventory_data <- read_csv('inventory_ecommerce.csv')
+customers_data <- read_csv('customers_ecommerce.csv')
+shipment_data <- read_csv('shipment_ecommerce.csv')
+payments_data <- read_csv('payments_ecommerce.csv')
+# For Excel files, use read_excel instead of read_csv
 
-```{r}
+
 # Write the data frames to the SQLite database
 dbWriteTable(db, 'Supplier', suppliers_data, append = TRUE, overwrite = FALSE)
 dbWriteTable(db, 'Product', products_data, append = TRUE, overwrite = FALSE)
@@ -134,39 +111,10 @@ dbWriteTable(db, 'Payment', payments_data, append = TRUE, overwrite = FALSE)
 
 #consider Ads
 #dbWriteTable(db, 'Ads', ads_data, append = TRUE, overwrite = FALSE)
-```
 
 
-```{r}
 
-# List all the tables in the SQLite database
-tables <- dbListTables(db)
-print(tables)
 
-# Function to get a summary of each table
-table_summary <- function(db, table_name) {
-  message(paste("Getting summary for table:", table_name))
-  dbGetQuery(db, paste0("SELECT * FROM ", table_name, " LIMIT 5"))
-}
-
-# Apply the summary function to each table and store the results
-summaries <- lapply(tables, table_summary, db=db)
-
-# Print the summary for each table
-for (table in names(summaries)) {
-  print(table)
-  print(summaries[[table]])
-}
-
-# If you want to check the number of entries in each table
-for (table in tables) {
-  count <- dbGetQuery(db, paste0("SELECT COUNT(*) as 'Number of Records' FROM ", table))
-  print(paste(table, ":", count, "records"))
-}
-
-```
-
-```{r}
 
 # Function to get the first ten records of a given table
 get_first_ten_records <- function(db, table_name) {
@@ -188,9 +136,11 @@ products_above_100 <- dbGetQuery(db, "SELECT * FROM Product WHERE PRICE > 100")
 product_count <- dbGetQuery(db, "SELECT COUNT(*) AS TotalProducts FROM Product")
 
 
-```
 
-```{r}
+
+
+
+
 # Retrieve the first 10 records from the Supplier table
 suppliers_first_10 <- dbGetQuery(db, "SELECT * FROM Supplier LIMIT 10")
 
@@ -208,9 +158,10 @@ print(product_count)
 print(products_above_100)
 print(distinct_categories)
 
-```
 
-```{r}
+
+
+
 
 
 products_with_suppliers <- dbGetQuery(db, "
@@ -220,9 +171,7 @@ products_with_suppliers <- dbGetQuery(db, "
 ")
 
 print(products_with_suppliers)
-```
 
-```{r}
+
+
 dbDisconnect(db)
-```
-
