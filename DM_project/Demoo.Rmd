@@ -14,7 +14,8 @@ library(readr)
 library(RSQLite)
 library(DBI)
 library(readxl)
-
+library(tidyr)
+library(plotly)
 ```
 
 ```{r}
@@ -121,28 +122,202 @@ SELECT * FROM CUSTOMER;
 ```{sql connection=db}
 SELECT CUSTOMER_ID, CUSTOMER_FIRSTNAME, CUSTOMER_LASTNAME FROM CUSTOMER;
 ```
-
 # Lets see PRODUCTS and their prices
 ```{sql connection=db}
 SELECT PRODUCT_NAME, PRICE FROM PRODUCT;
 ```
-
 # lets use wildcard expression and Limit with it
 ```{sql connection=db}
 SELECT * FROM SUPPLIER LIMIT 5;
 ```
-
-
+# our top five expensive items
 ```{sql connection=db}
-SELECT PRICE FROM 
+SELECT DISTINCT PRODUCT_ID, PRODUCT_NAME, PRICE
+FROM Product
+WHERE PRICE > 1000
+ORDER BY PRICE DESC
+LIMIT 5;
+```
+# our five cheapeast items
+```{sql connection=db}
+SELECT DISTINCT PRODUCT_ID, PRODUCT_NAME, PRICE
+FROM Product
+ORDER BY PRICE ASC
+LIMIT 5;
+```
+
+TOTAL SALES
+```{sql connection=db}
+SELECT SUM(ORDER_AMOUNT) AS Total_Sales FROM Payment;
+
+```
+# Most sold item with quantity sold, price per item, total quantity sold, and total profit:
+```{sql connection=db}
+
+SELECT p.PRODUCT_NAME, p.PRICE, COUNT(p.PRODUCT_ID) AS Units_Sold, SUM(pay.ORDER_AMOUNT) AS Total_Sales
+FROM Product p
+JOIN Payment pay ON p.PRODUCT_ID = pay.PRODUCT_ID
+GROUP BY p.PRODUCT_ID
+ORDER BY Units_Sold DESC, Total_Sales DESC
+LIMIT 1;
+
+```
+# For the category with the most shipments
+```{sql connection=db}
+SELECT p.PRODUCT_CATEGORY, COUNT(s.SHIPMENT_ID) AS Total_Shipments
+FROM Product p
+JOIN ShipMENT s ON p.PRODUCT_ID = s.PRODUCT_ID
+GROUP BY p.PRODUCT_CATEGORY
+ORDER BY Total_Shipments DESC
+LIMIT 1;
+
+```
+# For the category with the least shipments
+```{sql connection=db}
+SELECT p.PRODUCT_CATEGORY, COUNT(s.SHIPMENT_ID) AS Total_Shipments
+FROM Product p
+JOIN ShipMENT s ON p.PRODUCT_ID = s.PRODUCT_ID
+GROUP BY p.PRODUCT_CATEGORY
+ORDER BY Total_Shipments ASC
+LIMIT 1;
+
+
+```
+# Customers with the Highest Spending
+```{sql connection=db}
+SELECT c.CUSTOMER_FIRSTNAME, c.CUSTOMER_LASTNAME, p.PRODUCT_NAME, SUM(pa.ORDER_AMOUNT) AS Total_Spent
+FROM Customer c
+JOIN Payment pa ON c.CUSTOMER_ID = pa.CUSTOMER_ID
+JOIN Product p ON pa.PRODUCT_ID = p.PRODUCT_ID
+GROUP BY c.CUSTOMER_ID, p.PRODUCT_NAME
+ORDER BY Total_Spent DESC
+LIMIT 10;
+
+```
+
+# Inventory Levels Below Reorder Threshold Including Product Names
+```{sql connection=db}
+
+SELECT p.PRODUCT_NAME, i.STOCK
+FROM Inventory i
+JOIN Product p ON i.PRODUCT_ID = p.PRODUCT_ID
+WHERE i.STOCK < 10; -- Assuming 10 is the reorder threshold
+
+
+```
+
+# Advanced data analysis
+
+
+# Monthly sales over time
+```{r}
+str(payments_data)
+
+payments_data$PAYMENT_DATE <- as.Date(payments_data$PAYMENT_DATE, format = "%m/%d/%Y") # Adjust format as needed
+
+sales_data <- payments_data %>%
+  mutate(MONTH = floor_date(PAYMENT_DATE, "month")) %>%
+  group_by(MONTH) %>%
+  summarise(Total_Sales = sum(ORDER_AMOUNT))
+
+
+
+plot_ly(data = sales_data, x = ~MONTH, y = ~Total_Sales, type = 'scatter', mode = 'lines+markers',
+        line = list(shape = "spline", smoothing = 1.3), marker = list(size = 10)) %>%
+  layout(title = "Monthly Sales Over Time",
+         xaxis = list(title = "Month",
+                      tickformat = "%b %Y",
+                      type = "date"),
+         yaxis = list(title = "Total Sales ($)"),
+         hovermode = "closest")
 
 ```
 
 
 
-```{sql connection=db}
+
+# volume sold over the months
+```{r}
+sales_volume <- payments_data %>%
+  mutate(MONTH = floor_date(as.Date(PAYMENT_DATE), "month")) %>%
+  group_by(MONTH) %>%
+  summarise(Sales_Volume = n())
+
+plot_ly(data = sales_volume, x = ~MONTH, y = ~Sales_Volume, type = 'scatter', mode = 'lines+markers',
+        line = list(shape = "spline"), marker = list(size = 10)) %>%
+  layout(title = "Monthly Sales Volume",
+         xaxis = list(title = "Month",
+                      tickformat = "%b %Y",
+                      type = "date"),
+         yaxis = list(title = "Number of Items Sold"))
+
+```
+
+
+
+
+```{r}
+
+sales_category_data <- payments_data %>%
+  left_join(products_data, by = "PRODUCT_ID") %>%
+  mutate(MONTH = floor_date(as.Date(PAYMENT_DATE), "month")) %>%
+  group_by(MONTH, PRODUCT_CATEGORY) %>%
+  summarise(Total_Sales = sum(ORDER_AMOUNT), .groups = 'drop')
+
+plot_ly(data = sales_category_data) %>%
+  add_bars(x = ~MONTH, y = ~Total_Sales, color = ~PRODUCT_CATEGORY, colors = "Pastel1") %>%
+  layout(title = "Monthly Sales Revenue by Product Category",
+         barmode = 'group',
+         xaxis = list(title = "Month", tickformat = "%b %Y", type = "date"),
+         yaxis = list(title = "Total Sales ($)"),
+         colorway = RColorBrewer::brewer.pal(8, "Dark2"))
+
 
 
 ```
 
+
+```{r}
+
+str(customers_data)
+
+# Convert dates to Date objects, assuming the format is month-day-year
+customers_data$CUSTOMER_BIRTHDAY <- mdy(customers_data$CUSTOMER_BIRTHDAY)
+
+# Now we can safely extract the year
+customers_data$BirthYear <- year(customers_data$CUSTOMER_BIRTHDAY)
+
+
+
+customers_data <- customers_data %>%
+  mutate(Generation = case_when(
+    BirthYear >= 1928 & BirthYear <= 1945 ~ "Silent Generation",
+    BirthYear >= 1946 & BirthYear <= 1964 ~ "Baby Boomers",
+    BirthYear >= 1965 & BirthYear <= 1980 ~ "Generation X",
+    BirthYear >= 1981 & BirthYear <= 1996 ~ "Millennials",
+    BirthYear >= 1997 & BirthYear <= 2012 ~ "Generation Z",
+    BirthYear >= 2013 ~ "Generation Alpha",
+    TRUE ~ "Unknown" # for any data that doesn't fit the above categories
+  ))
+
+
+ggplot(customers_data, aes(x = Generation)) +
+  geom_bar(fill = "cornflowerblue") +
+  labs(title = "Distribution of Customers by Generation",
+       x = "Generation",
+       y = "Count") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+library(plotly)
+
+plot_ly(customers_data, x = ~Generation, type = 'histogram', marker = list(color = 'lightsalmon')) %>%
+  layout(title = "Distribution of Customers by Generation",
+         xaxis = list(title = "Generation"),
+         yaxis = list(title = "Count"))
+
+```
+```{r}
+
+
+```
 
