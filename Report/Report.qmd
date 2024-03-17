@@ -11,9 +11,9 @@ editor: visual
 
 ### 1.1 E-R Diagram Design
 
-![Figure 1: Initial E-R Diagram](images/First%20Diagram.jpg){fig-align="center" width="410"}
+![Initial E-R Diagram](images/First%20Diagram.jpg){fig-align="center" width="410"}
 
-![Figure 2: Final E-R Diagram](images/Final%20Diagram.jpg){fig-align="center" width="506"}
+![Final E-R Diagram](images/Final%20Diagram.jpg){fig-align="center" width="506"}
 
 At the initial creation, our group developed first Entity-Relationship (E-R) diagram with nine entities including Supplier, Product, Ads, Category, Inventory, Customer, Order, Payment, and Shipping -- connected by eleven relationships. (refer to Figure 1) Each entity contains a primary key for unique identification of each instance in the entities, related attributes, and a foreign key as needed. However, through the deeper examination when converting the diagram into the schema, it was found that there were several errors in the initial E-R diagram, making the database incompatible with the third normal form (3NF). The following adjustments - such as adding and removing entities, relationships, and attributes - were done to solved the problem.
 
@@ -50,8 +50,6 @@ The initial schema was created based on the initial E-R Diagram containing nine 
 In order to rectify this, we took care of unnecessary entities, redundant relationships, and non-atomic attributes. After this process, the final database schema consisting of six tables - Supplier, Product, Inventory, Customer, Payment, and Shipping -- according to the final E-R diagram was created. With utilisation of SQL code, all attributes were added as the columns of the tables. The primary key and foreign key of each entity were also determined. Additionally, we also carefully specified the data type of each attribute or each column of the table- for example, SUPPLIER_NAME should be text, PRICE should be numeric, and CUSTOMER_BIRTHDAY should be date. This is important as it helps in organizing and managing the data while maintaining consistency and integrity.
 
 The assumptions used for the final database schema
-
-\*\* TO ADD ASSUMPTIONS \*\*
 
 The SQL codes for schema creation are as follows
 
