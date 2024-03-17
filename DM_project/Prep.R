@@ -6,43 +6,48 @@ library(RSQLite)
 library(DBI)
 library(readxl)
 
-
-
+# Establish a connection to the database
 db <- dbConnect(RSQLite::SQLite(), dbname = "e_commerce_database.db")
-# consider changing above to the way nikois do in his class
-# Token(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)
 
+# Function to check if a table exists in the database
+table_exists <- function(db, table_name) {
+  exists <- dbGetQuery(db, paste0("SELECT name FROM sqlite_master WHERE type='table' AND name='", table_name, "';"))
+  nrow(exists) > 0
+}
 
+# Function to create a table if it does not exist
+create_table_if_not_exists <- function(db, table_name, create_table_sql) {
+  if (!table_exists(db, table_name)) {
+    dbExecute(db, create_table_sql)
+  }
+}
 
-# Create Supplier table
-dbExecute(db, "CREATE TABLE Supplier (
+# SQL statements to create tables
+create_supplier_table_sql <- "CREATE TABLE Supplier (
   SUPPLIER_ID TEXT PRIMARY KEY,
   SUPPLIER_NAME TEXT,
   SUPPLIER_PHONE TEXT,
   SUPPLIER_EMAIL TEXT
-)")
+)"
 
-# Create Product table
-dbExecute(db, "CREATE TABLE Product (
+create_product_table_sql <- "CREATE TABLE Product (
   PRODUCT_ID TEXT PRIMARY KEY,
   PRODUCT_NAME TEXT,
   PRODUCT_CATEGORY TEXT,
   PRICE NUMERIC,
   SUPPLIER_ID TEXT,
   FOREIGN KEY(SUPPLIER_ID) REFERENCES Supplier(SUPPLIER_ID)
-)")
+)"
 
-# Create Inventory table
-dbExecute(db, "CREATE TABLE Inventory (
+create_inventory_table_sql <- "CREATE TABLE Inventory (
   INVENTORY_ID TEXT PRIMARY KEY,
   STOCK INTEGER,
   SHELF_NO TEXT,
   PRODUCT_ID TEXT,
   FOREIGN KEY(PRODUCT_ID) REFERENCES Product(PRODUCT_ID)
-)")
+)"
 
-# Create Customer table
-dbExecute(db, "CREATE TABLE Customer (
+create_customer_table_sql <- "CREATE TABLE Customer (
   CUSTOMER_ID TEXT PRIMARY KEY,
   CUSTOMER_FIRSTNAME TEXT,
   CUSTOMER_LASTNAME TEXT,
@@ -52,10 +57,9 @@ dbExecute(db, "CREATE TABLE Customer (
   CUSTOMER_GENDER TEXT,
   SHIPMENT_ID TEXT,
   PAYMENT_ID TEXT
-)")
+)"
 
-# Create Shipping table
-dbExecute(db, "CREATE TABLE Shipping (
+create_shipping_table_sql <- "CREATE TABLE Shipping (
   SHIPMENT_ID TEXT PRIMARY KEY,
   SHIPMENT_DATE DATE,
   SHIPMENT_ADDRESS TEXT,
@@ -66,10 +70,9 @@ dbExecute(db, "CREATE TABLE Shipping (
   PRODUCT_ID TEXT,
   FOREIGN KEY(CUSTOMER_ID) REFERENCES Customer(CUSTOMER_ID),
   FOREIGN KEY(PRODUCT_ID) REFERENCES Product(PRODUCT_ID)
-)")
+)"
 
-# Create Payment table
-dbExecute(db, "CREATE TABLE Payment (
+create_payment_table_sql <- "CREATE TABLE Payment (
   PAYMENT_ID TEXT PRIMARY KEY,
   PAYMENT_METHOD TEXT,
   ORDER_AMOUNT NUMERIC,
@@ -82,39 +85,31 @@ dbExecute(db, "CREATE TABLE Payment (
   PRODUCT_ID TEXT,
   FOREIGN KEY(CUSTOMER_ID) REFERENCES Customer(CUSTOMER_ID),
   FOREIGN KEY(PRODUCT_ID) REFERENCES Product(PRODUCT_ID)
-)")
+)"
 
+# Create tables if they do not exist
+create_table_if_not_exists(db, 'Supplier', create_supplier_table_sql)
+create_table_if_not_exists(db, 'Product', create_product_table_sql)
+create_table_if_not_exists(db, 'Inventory', create_inventory_table_sql)
+create_table_if_not_exists(db, 'Customer', create_customer_table_sql)
+create_table_if_not_exists(db, 'Shipping', create_shipping_table_sql)
+create_table_if_not_exists(db, 'Payment', create_payment_table_sql)
 
-
-
-
-# Read Excel files into R data frames
-# Replace 'path_to_excel_file.xlsx' with the actual path to your Excel files
-# Read CSV files into R data frames
-# Replace the paths with the actual paths to your CSV files
+# Read data from CSV files
 suppliers_data <- read_csv('supplier_ecommerce.csv')
 products_data <- read_csv('products_ecommerce.csv')
 inventory_data <- read_csv('inventory_ecommerce.csv')
 customers_data <- read_csv('customers_ecommerce.csv')
 shipment_data <- read_csv('shipment_ecommerce.csv')
 payments_data <- read_csv('payments_ecommerce.csv')
-# For Excel files, use read_excel instead of read_csv
 
-
-# Write the data frames to the SQLite database
+# Write data to the database
 dbWriteTable(db, 'Supplier', suppliers_data, append = FALSE, overwrite = TRUE)
 dbWriteTable(db, 'Product', products_data, append = FALSE, overwrite = TRUE)
 dbWriteTable(db, 'Inventory', inventory_data, append = FALSE, overwrite = TRUE)
 dbWriteTable(db, 'Customer', customers_data, append = FALSE, overwrite = TRUE)
 dbWriteTable(db, 'Shipping', shipment_data, append = FALSE, overwrite = TRUE)
 dbWriteTable(db, 'Payment', payments_data, append = FALSE, overwrite = TRUE)
-
-#consider Ads
-#dbWriteTable(db, 'Ads', ads_data, append = TRUE, overwrite = FALSE)
-
-
-
-
 
 # Function to get the first ten records of a given table
 get_first_ten_records <- function(db, table_name) {
@@ -132,48 +127,25 @@ first_ten_records_list <- lapply(table_names, get_first_ten_records, db = db)
 # This will print the first ten records from each table
 first_ten_records_list
 
-products_above_100 <- dbGetQuery(db, "SELECT * FROM Product WHERE PRICE > 100")
+# Additional queries
 product_count <- dbGetQuery(db, "SELECT COUNT(*) AS TotalProducts FROM Product")
+products_above_100 <- dbGetQuery(db, "SELECT * FROM Product WHERE PRICE > 100")
 
-
-
-
-
-
-
-# Retrieve the first 10 records from the Supplier table
+# Retrieve and print additional data
 suppliers_first_10 <- dbGetQuery(db, "SELECT * FROM Supplier LIMIT 10")
-
-# Count the number of records in the Product table
-product_count <- dbGetQuery(db, "SELECT COUNT(*) AS TotalProducts FROM Product")
-
-# Retrieve all products with a price greater than 100
-products_above_100 <- dbGetQuery(db, "SELECT * FROM Product WHERE PRICE > 100")
-
-# Retrieve all distinct categories from the Product table
 distinct_categories <- dbGetQuery(db, "SELECT DISTINCT PRODUCT_CATEGORY FROM Product")
-
-print(suppliers_first_10)
-print(product_count)
-print(products_above_100)
-print(distinct_categories)
-
-
-
-
-
-
-
 products_with_suppliers <- dbGetQuery(db, "
   SELECT p.PRODUCT_ID, p.PRODUCT_NAME, p.PRICE, s.SUPPLIER_NAME 
   FROM Product p
   INNER JOIN Supplier s ON p.SUPPLIER_ID = s.SUPPLIER_ID
 ")
 
+# Printing query results
+print(suppliers_first_10)
+print(product_count)
+print(products_above_100)
+print(distinct_categories)
 print(products_with_suppliers)
 
-
-db
-
-
+# Disconnect from the database
 dbDisconnect(db)
