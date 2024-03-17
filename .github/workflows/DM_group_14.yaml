@@ -36,7 +36,7 @@ jobs:
         working-directory: DM_project
       - name: Commit updated database
         run: |
-          git add DM_project/e_commerce_database.db
+          git add e_commerce_database.db
           git commit -m "Update database with new data" || echo "No changes to commit"
         working-directory: DM_project
       - name: Push changes
