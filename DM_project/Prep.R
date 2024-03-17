@@ -6,7 +6,6 @@ library(RSQLite)
 library(DBI)
 library(readxl)
 
-<<<<<<< HEAD
 
 db <- dbConnect(RSQLite::SQLite(), dbname = "e_commerce_database.db")
 # consider changing above to the way nikois do in his class
@@ -129,7 +128,7 @@ shipment_data <- read_csv('DM_project/shipment_ecommerce.csv')
 payments_data <- read_csv('DM_project/payments_ecommerce.csv')
 # For Excel files, use read_excel instead of read_csv
 
-=======
+
 # Establish a connection to the database
 db <- dbConnect(RSQLite::SQLite(), dbname = "e_commerce_database.db")
 
@@ -226,7 +225,7 @@ inventory_data <- read_csv('inventory_ecommerce.csv')
 customers_data <- read_csv('customers_ecommerce.csv')
 shipment_data <- read_csv('shipment_ecommerce.csv')
 payments_data <- read_csv('payments_ecommerce.csv')
->>>>>>> ea0b9798705f2105b673f141417a304125e5d640
+
 
 # Write data to the database
 dbWriteTable(db, 'Supplier', suppliers_data, append = FALSE, overwrite = TRUE)
@@ -236,12 +235,11 @@ dbWriteTable(db, 'Customer', customers_data, append = FALSE, overwrite = TRUE)
 dbWriteTable(db, 'Shipping', shipment_data, append = FALSE, overwrite = TRUE)
 dbWriteTable(db, 'Payment', payments_data, append = FALSE, overwrite = TRUE)
 
-<<<<<<< HEAD
+
 #consider Ads
 #dbWriteTable(db, 'Ads', ads_data, append = TRUE, overwrite = FALSE)
 
-=======
->>>>>>> ea0b9798705f2105b673f141417a304125e5d640
+
 # Function to get the first ten records of a given table
 get_first_ten_records <- function(db, table_name) {
   query <- sprintf("SELECT * FROM %s LIMIT 10", table_name)
@@ -260,7 +258,7 @@ first_ten_records_list
 
 # Additional queries
 product_count <- dbGetQuery(db, "SELECT COUNT(*) AS TotalProducts FROM Product")
-<<<<<<< HEAD
+
 
 # Retrieve the first 10 records from the Supplier table
 suppliers_first_10 <- dbGetQuery(db, "SELECT * FROM Supplier LIMIT 10")
@@ -269,22 +267,20 @@ suppliers_first_10 <- dbGetQuery(db, "SELECT * FROM Supplier LIMIT 10")
 product_count <- dbGetQuery(db, "SELECT COUNT(*) AS TotalProducts FROM Product")
 
 # Retrieve all products with a price greater than 100
-=======
->>>>>>> ea0b9798705f2105b673f141417a304125e5d640
+
 products_above_100 <- dbGetQuery(db, "SELECT * FROM Product WHERE PRICE > 100")
 
 # Retrieve and print additional data
 suppliers_first_10 <- dbGetQuery(db, "SELECT * FROM Supplier LIMIT 10")
 distinct_categories <- dbGetQuery(db, "SELECT DISTINCT PRODUCT_CATEGORY FROM Product")
-<<<<<<< HEAD
+
 
 print(suppliers_first_10)
 print(product_count)
 print(products_above_100)
 print(distinct_categories)
 
-=======
->>>>>>> ea0b9798705f2105b673f141417a304125e5d640
+
 products_with_suppliers <- dbGetQuery(db, "
   SELECT p.PRODUCT_ID, p.PRODUCT_NAME, p.PRICE, s.SUPPLIER_NAME 
   FROM Product p
@@ -298,12 +294,7 @@ print(products_above_100)
 print(distinct_categories)
 print(products_with_suppliers)
 
-<<<<<<< HEAD
-
-db
 
 
-=======
-# Disconnect from the database
->>>>>>> ea0b9798705f2105b673f141417a304125e5d640
+
 dbDisconnect(db)
