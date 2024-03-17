@@ -27,7 +27,7 @@ jobs:
           Rscript -e 'install.packages(c("DBI", "RSQLite", "ggplot2", "lubridate","readr"), dependencies = TRUE)'
       - name: Execute R script
         run: |
-          Rscript R/Prep.R
+          Rscript Prep.R
         working-directory: DM_project
       - name: Configure Git
         run: |
