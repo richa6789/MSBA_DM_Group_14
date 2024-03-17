@@ -25,7 +25,11 @@ Lastly, we made changes in some certain attributes. We had spotted three non-ato
 
 After all of these adjustments, a final E-R diagram that could accommodate a database in 3NF was produced. In order to maintain data integrity and reduce redundancy, the resultant diagram consists of six entities: Supplier, Product, Inventory, Customer, Payment, and Shipping. These entities are related by five relationships. (refer to Figure 2)
 
-The assumptions used for the final E-R diagram
+![Figure 3: Relationship Set](images/Logical.jpg){fig-align="center" width="388"}
+
+![Figure 4: Relational Schema](images/Relational%20Schema.png){fig-align="center" width="366"}
+
+The assumptions used for the relationships between entities of the final E-R diagram
 
 1.  A single product may be provided by several providers
 
@@ -37,9 +41,7 @@ The assumptions used for the final E-R diagram
 
 5.  One payment can be associated with only one shipment
 
-All the relationships between entities were illustrated in Figure 3.
-
-![Figure 3: Logical ](images/Logical.jpg){fig-align="center" width="458"}
+All the relationships between entities were illustrated in Figure 3 and Figure 4
 
 ### 1.2 SQL Database Schema Creation
 
@@ -50,3 +52,97 @@ In order to rectify this, we took care of unnecessary entities, redundant relati
 The assumptions used for the final database schema
 
 \*\* TO ADD ASSUMPTIONS \*\*
+
+The SQL codes for schema creation are as follows
+
+```{r}
+# Establish a connection to the database
+db <- dbConnect(RSQLite::SQLite(), dbname = "e_commerce_database.db")
+
+# Function to check if a table exists in the database
+table_exists <- function(db, table_name) {
+  exists <- dbGetQuery(db, paste0("SELECT name FROM sqlite_master WHERE type='table' AND name='", table_name, "';"))
+  nrow(exists) > 0
+}
+
+# Function to create a table if it does not exist
+create_table_if_not_exists <- function(db, table_name, create_table_sql) {
+  if (!table_exists(db, table_name)) {
+    dbExecute(db, create_table_sql)
+  }
+}
+
+# SQL statements to create tables
+create_supplier_table_sql <- "CREATE TABLE Supplier (
+  SUPPLIER_ID TEXT PRIMARY KEY,
+  SUPPLIER_NAME TEXT,
+  SUPPLIER_PHONE TEXT,
+  SUPPLIER_EMAIL TEXT
+)"
+
+create_product_table_sql <- "CREATE TABLE Product (
+  PRODUCT_ID TEXT PRIMARY KEY,
+  PRODUCT_NAME TEXT,
+  PRODUCT_CATEGORY TEXT,
+  PRICE NUMERIC,
+  SUPPLIER_ID TEXT,
+  FOREIGN KEY(SUPPLIER_ID) REFERENCES Supplier(SUPPLIER_ID)
+)"
+
+create_inventory_table_sql <- "CREATE TABLE Inventory (
+  INVENTORY_ID TEXT PRIMARY KEY,
+  STOCK INTEGER,
+  SHELF_NO TEXT,
+  PRODUCT_ID TEXT,
+  FOREIGN KEY(PRODUCT_ID) REFERENCES Product(PRODUCT_ID)
+)"
+
+create_customer_table_sql <- "CREATE TABLE Customer (
+  CUSTOMER_ID TEXT PRIMARY KEY,
+  CUSTOMER_FIRSTNAME TEXT,
+  CUSTOMER_LASTNAME TEXT,
+  CUSTOMER_EMAIL TEXT,
+  CUSTOMER_PHONE TEXT,
+  CUSTOMER_BIRTHDAY DATE,
+  CUSTOMER_GENDER TEXT,
+  SHIPMENT_ID TEXT,
+  PAYMENT_ID TEXT
+)"
+
+create_shipping_table_sql <- "CREATE TABLE Shipping (
+  SHIPMENT_ID TEXT PRIMARY KEY,
+  SHIPMENT_DATE DATE,
+  SHIPMENT_ADDRESS TEXT,
+  SHIPMENT_CITY TEXT,
+  SHIPMENT_ZIPCODE TEXT,
+  SHIPMENT_COUNTRY TEXT,
+  CUSTOMER_ID TEXT,
+  PRODUCT_ID TEXT,
+  FOREIGN KEY(CUSTOMER_ID) REFERENCES Customer(CUSTOMER_ID),
+  FOREIGN KEY(PRODUCT_ID) REFERENCES Product(PRODUCT_ID)
+)"
+
+create_payment_table_sql <- "CREATE TABLE Payment (
+  PAYMENT_ID TEXT PRIMARY KEY,
+  PAYMENT_METHOD TEXT,
+  ORDER_AMOUNT NUMERIC,
+  PAYMENT_DATE DATE,
+  BILLING_ADDRESS TEXT,
+  BILLING_CITY TEXT,
+  BILLING_ZIPCODE TEXT,
+  BILLING_COUNTRY TEXT,
+  CUSTOMER_ID TEXT,
+  PRODUCT_ID TEXT,
+  FOREIGN KEY(CUSTOMER_ID) REFERENCES Customer(CUSTOMER_ID),
+  FOREIGN KEY(PRODUCT_ID) REFERENCES Product(PRODUCT_ID)
+)"
+
+# Create tables if they do not exist
+create_table_if_not_exists(db, 'Supplier', create_supplier_table_sql)
+create_table_if_not_exists(db, 'Product', create_product_table_sql)
+create_table_if_not_exists(db, 'Inventory', create_inventory_table_sql)
+create_table_if_not_exists(db, 'Customer', create_customer_table_sql)
+create_table_if_not_exists(db, 'Shipping', create_shipping_table_sql)
+create_table_if_not_exists(db, 'Payment', create_payment_table_sql)
+
+```
