@@ -34,9 +34,11 @@ jobs:
           git config --global user.email "u5521398@live.warwick.ac.uk"
           git config --global user.name "AdnanAndar98"
           git add e_commerce_database.db
+          working-directory: DM_project
       - name: Commit files
         run: |
          git commit -m "Update database with new data" || echo "No changes to commit"
+         working-directory: DM_project
       - name: Push changes
         uses: ad-m/github-push-action@v0.6.0
         with:
