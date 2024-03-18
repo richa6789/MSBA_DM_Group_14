@@ -25,7 +25,7 @@ jobs:
       - name: Install R packages
         if: steps.cache.outputs.cache-hit != 'true'
         run: |
-          Rscript -e 'install.packages(c("DBI", "RSQLite", "ggplot2", "lubridate","readr"), dependencies = TRUE)'
+          Rscript -e 'install.packages(c("DBI", "RSQLite","readr"), dependencies = TRUE)'
       - name: Execute R script
         run: |
           Rscript Prep.R
