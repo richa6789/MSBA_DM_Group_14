@@ -21,26 +21,25 @@ jobs:
           key: ${{ runner.os }}-r-${{ hashFiles('**/lockfile') }}
           restore-keys: | 
             ${{ runner.os }}-r-
-      - name: Install R packages
+      - name: Install packages
         if: steps.cache.outputs.cache-hit != 'true'
         run: |
-          Rscript -e 'install.packages(c("DBI", "RSQLite", "ggplot2", "lubridate","readr"), dependencies = TRUE)'
+          Rscript -e 'install.packages(c("DBI", "RSQLite", "readr"))'
       - name: Execute R script
         run: |
           Rscript Prep.R
-        working-directory: DM_project
-      - name: Configure Git
+      - name: Add files
         run: |
           git config --global user.email "u5521398@live.warwick.ac.uk"
           git config --global user.name "AdnanAndar98"
-        working-directory: DM_project
-      - name: Commit updated database
-        run: |
           git add e_commerce_database.db
-          git commit -m "Update database with new data" || echo "No changes to commit"
-        working-directory: DM_project
+      - name: Commit files
+        run: |
+         git commit -m "Update database with new data" || echo "No changes to commit"
       - name: Push changes
         uses: ad-m/github-push-action@v0.6.0
         with:
-          github_token: ${{ secrets.DM_TKN }}
-          branch: main
+            github_token: ${{ secrets.GITHUB_TOKEN }}
+            branch: main
+
+
