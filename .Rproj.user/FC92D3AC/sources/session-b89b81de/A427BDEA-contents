@@ -1,0 +1,92 @@
+library(DBI)
+library(RSQLite)
+
+# Connect to an SQLite database (this will create the database if it does not exist)
+con <- dbConnect(RSQLite::SQLite(), dbname = "DM_group_14")
+
+
+# Load required library for DB connection, adapt for your specific database
+library(DBI)
+
+# Example of database connection (you need to replace with your own details)
+# db <- dbConnect(RMySQL::MySQL(), dbname = 'ecommerce_db', host = 'localhost', 
+#                 user = 'your_username', password = 'your_password')
+
+# Table creation SQL statements based on the schema you provided
+tables_sql <- c(
+  "CREATE TABLE Supplier (
+    SUPPLIER_ID INT PRIMARY KEY,
+    SUPPLIER_NAME VARCHAR(255),
+    SUPPLIER_PHONE VARCHAR(20),
+    SUPPLIER_EMAIL VARCHAR(255)
+  );",
+  
+  "CREATE TABLE Product (
+    PRODUCT_ID INT PRIMARY KEY,
+    PRODUCT_NAME VARCHAR(255),
+    PRODUCT_CATEGORY VARCHAR(255),
+    PRICE DECIMAL(10, 2),
+    SUPPLIER_ID INT,
+    FOREIGN KEY (SUPPLIER_ID) REFERENCES Supplier(SUPPLIER_ID)
+  );",
+  
+  "CREATE TABLE Inventory (
+    INVENTORY_ID INT PRIMARY KEY,
+    STOCK INT,
+    SHELF_NO VARCHAR(20),
+    PRODUCT_ID INT,
+    FOREIGN KEY (PRODUCT_ID) REFERENCES Product(PRODUCT_ID)
+  );",
+  
+  "CREATE TABLE Customer (
+    CUSTOMER_ID INT PRIMARY KEY,
+    CUSTOMER_FIRSTNAME VARCHAR(255),
+    CUSTOMER_LASTNAME VARCHAR(255),
+    CUSTOMER_EMAIL VARCHAR(255),
+    CUSTOMER_PHONE VARCHAR(20),
+    CUSTOMER_BIRTHDAY DATE,
+    CUSTOMER_GENDER VARCHAR(10)
+  );",
+  
+  "CREATE TABLE Shipping (
+    SHIPMENT_ID INT PRIMARY KEY,
+    SHIPMENT_DATE DATE,
+    SHIPMENT_CITY VARCHAR(255),
+    SHIPMENT_COUNTRY VARCHAR(255),
+    SHIPMENT_ZIPCODE VARCHAR(10),
+    CUSTOMER_ID INT,
+    PRODUCT_ID INT,
+    ORDER_QUANTITY INT,
+    FOREIGN KEY (CUSTOMER_ID) REFERENCES Customer(CUSTOMER_ID),
+    FOREIGN KEY (PRODUCT_ID) REFERENCES Product(PRODUCT_ID)
+  );",
+  
+  "CREATE TABLE Payment (
+    PAYMENT_ID INT PRIMARY KEY,
+    PAYMENT_METHOD VARCHAR(255),
+    PAYMENT_DATE DATE,
+    CUSTOMER_ID INT,
+    PRODUCT_ID INT,
+    ORDER_AMOUNT DECIMAL(10, 2),
+    BILLING_CITY VARCHAR(255),
+    BILLING_COUNTRY VARCHAR(255),
+    BILLING_ZIPCODE VARCHAR(10),
+    FOREIGN KEY (CUSTOMER_ID) REFERENCES Customer(CUSTOMER_ID),
+    FOREIGN KEY (PRODUCT_ID) REFERENCES Product(PRODUCT_ID)
+  );",
+  
+  "CREATE TABLE Ads (
+    AD_ID INT PRIMARY KEY,
+    AD_CATEGORY VARCHAR(255),
+    PRODUCT_ID INT,
+    FOREIGN KEY (PRODUCT_ID) REFERENCES Product(PRODUCT_ID)
+  );"
+)
+
+# Execute each table creation statement
+for (sql in tables_sql) {
+  dbExecute(db, sql)
+}
+
+# Close the database connection
+# dbDisconnect(db)

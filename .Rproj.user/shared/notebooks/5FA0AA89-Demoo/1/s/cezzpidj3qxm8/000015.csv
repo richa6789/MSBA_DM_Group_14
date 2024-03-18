@@ -1,0 +1,6 @@
+"0","dbWriteTable(db, ""Supplier"", suppliers_data, overwrite = TRUE)"
+"0","dbWriteTable(db, ""Product"", products_data, overwrite = TRUE)"
+"0","dbWriteTable(db, ""Inventory"", inventories_data, overwrite = TRUE)"
+"0","dbWriteTable(db, ""Customer"", customers_data, overwrite = TRUE)"
+"0","dbWriteTable(db, ""Shipment"", shipments_data, overwrite = TRUE)"
+"0","dbWriteTable(db, ""Payment"", payments_data, overwrite = TRUE)"

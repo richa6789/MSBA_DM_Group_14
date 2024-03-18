@@ -1,0 +1,196 @@
+"0",""
+"0","sales_category_data <- payments_data %>%"
+"0","  left_join(products_data, by = ""PRODUCT_ID"") %>%"
+"0","  mutate(MONTH = floor_date(as.Date(PAYMENT_DATE), ""month"")) %>%"
+"0","  group_by(MONTH, PRODUCT_CATEGORY) %>%"
+"0","  summarise(Total_Sales = sum(ORDER_AMOUNT), .groups = 'drop')"
+"0",""
+"0","plot_ly(data = sales_category_data) %>%"
+"0","  add_bars(x = ~MONTH, y = ~Total_Sales, color = ~PRODUCT_CATEGORY, colors = ""Pastel1"") %>%"
+"0","  layout(title = ""Monthly Sales Revenue by Product Category"","
+"0","         barmode = 'group',"
+"0","         xaxis = list(title = ""Month"", tickformat = ""%b %Y"", type = ""date""),"
+"0","         yaxis = list(title = ""Total Sales ($)""),"
+"0","         colorway = RColorBrewer::brewer.pal(8, ""Dark2""))"
+"2","Warning: Ignoring 15 observations"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: Ignoring 15 observations"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"
+"2","Warning: n too large, allowed maximum for palette Pastel1 is 9
+Returning the palette you asked for with that many colors
+"

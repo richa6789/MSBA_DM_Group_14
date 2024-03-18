@@ -1,0 +1,1 @@
+"0","db <- RSQLite::dbConnect(RSQLite::SQLite(), ""e_commerce_database"")"

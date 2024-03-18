@@ -1,0 +1,8 @@
+-- !preview conn=DBI::dbConnect(RSQLite::SQLite())
+
+
+
+install.packages("RSQLite")
+install.packages("DBI")
+library(DBI)
+library(RSQLite)
