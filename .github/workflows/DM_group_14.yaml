@@ -28,6 +28,7 @@ jobs:
       - name: Execute R script
         run: |
           Rscript Prep.R
+          working-directory: DM_project
       - name: Add files
         run: |
           git config --global user.email "u5521398@live.warwick.ac.uk"
