@@ -86,13 +86,13 @@ customers_data <- read_csv('customers_ecommerce.csv')
 shipments_data <- read_csv('shipment_ecommerce.csv')
 payments_data <- read_csv('payments_ecommerce.csv')
 
-# Insert data into tables
-dbWriteTable(db, "Supplier", suppliers_data, overwrite = TRUE)
-dbWriteTable(db, "Product", products_data, overwrite = TRUE)
-dbWriteTable(db, "Inventory", inventories_data, overwrite = TRUE)
-dbWriteTable(db, "Customer", customers_data, overwrite = TRUE)
-dbWriteTable(db, "Shipment", shipments_data, overwrite = TRUE)
-dbWriteTable(db, "Payment", payments_data, overwrite = TRUE)
+# Insert or update data in tables 
+dbWriteTable(db, "Supplier", suppliers_data, append = TRUE)
+dbWriteTable(db, "Product", products_data, append = TRUE)
+dbWriteTable(db, "Inventory", inventories_data, append = TRUE)
+dbWriteTable(db, "Customer", customers_data, append = TRUE)
+dbWriteTable(db, "Shipment", shipments_data, append = TRUE)
+dbWriteTable(db, "Payment", payments_data, append = TRUE)
 
 # List all tables
 tables <- dbListTables(db)
