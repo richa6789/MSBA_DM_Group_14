@@ -8,7 +8,7 @@ library(DBI)
 library(readxl)
 
 # Connect to the SQLite database
-db <- dbConnect(RSQLite::SQLite(), dbname = "e_commerce_database.db")
+db <- dbConnect(RSQLite::SQLite(), dbname = "e_commerce_database.sqlite")
 
 # Define SQL commands for creating tables using DDL or Data Defination language
 sql_commands <- c(
@@ -265,4 +265,3 @@ print(low_inventory_levels)
 
 # Close the database connection
 dbDisconnect(db)
-
