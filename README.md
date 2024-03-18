@@ -1,4 +1,3 @@
-## Data Management group 14
 # E-Commerce Database Management System
 
 ## Overview
@@ -25,3 +24,12 @@ This project establishes an e-commerce database system. It employs R and RSQLite
 ## Conclusion
 
 This project delivers a comprehensive solution for e-commerce database management, leveraging R and RSQLite to handle complex data relationships and provide valuable insights into business operations.
+
+
+## Data Management group 14
+5528636
+5503558
+5586034
+5576106
+5562516
+5521398
