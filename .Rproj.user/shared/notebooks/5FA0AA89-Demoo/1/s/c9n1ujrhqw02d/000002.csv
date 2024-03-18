@@ -1,4 +1,0 @@
-"2","Error in get(options$connection, envir = globalenv()) : 
-  object 'conn' not found
-"
-"2","Failed to execute SQL chunk"
