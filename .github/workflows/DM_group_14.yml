@@ -40,6 +40,7 @@ jobs:
           git add e_commerce_database.db
           git commit -m "Update database with new data" || echo "No changes to commit"
         working-directory: DM_project
+        
       - name: Push changes
         uses: ad-m/github-push-action@v0.6.0
         with:
