@@ -1,0 +1,957 @@
+---
+title: "Report"
+author: "Group 14"
+format: pdf
+editor: visual
+toc: TRUE
+---
+
+## [Masters Programmes: Group Assignment Cover Sheet]{.underline}
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------+
+| **Student Numbers:\                                                                                                                                                                                                                                                                                                             | **5528636, 5503558, 5586034 5576106, 5562516, 5521398** |
+| **Please list numbers of all group members                                                                                                                                                                                                                                                                                      |                                                         |
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------+
+| **Module Code:**                                                                                                                                                                                                                                                                                                                | **IB9HP0**                                              |
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------+
+| **Module Title:**                                                                                                                                                                                                                                                                                                               | **Data Management**                                     |
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------+
+| **Submission Deadline:**                                                                                                                                                                                                                                                                                                        | **20/03/2024**                                          |
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------+
+| **Date Submitted:**                                                                                                                                                                                                                                                                                                             | **20/03/2024**                                          |
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------+
+| **Word Count:**                                                                                                                                                                                                                                                                                                                 | **1995**                                                |
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------+
+| **Number of Pages:**                                                                                                                                                                                                                                                                                                            | **30**                                                  |
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------+
+| **Question Attempted:**                                                                                                                                                                                                                                                                                                         | **40% Group Assignment**                                |
+|                                                                                                                                                                                                                                                                                                                                 |                                                         |
+| *(question number/title, or description of assignment)*                                                                                                                                                                                                                                                                         |                                                         |
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------+
+| **Have you used Artificial Intelligence (AI) in any part of this assignment?**                                                                                                                                                                                                                                                  | **Yes**                                                 |
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------+
+| **Academic Integrity Declaration**                                                                                                                                                                                                                                                                                              |                                                         |
+|                                                                                                                                                                                                                                                                                                                                 |                                                         |
+| We're part of an academic community at Warwick. Whether studying, teaching, or researching, we’re all taking part in an expert conversation which must meet standards of academic integrity. When we all meet these standards, we can take pride in our own academic achievements, as individuals and as an academic community. |                                                         |
+|                                                                                                                                                                                                                                                                                                                                 |                                                         |
+| Academic integrity means committing to honesty in academic work, giving credit where we've used others' ideas and being proud of our own achievements.                                                                                                                                                                          |                                                         |
+|                                                                                                                                                                                                                                                                                                                                 |                                                         |
+| In submitting my work, I confirm that:                                                                                                                                                                                                                                                                                          |                                                         |
+|                                                                                                                                                                                                                                                                                                                                 |                                                         |
+| §  I have read the guidance on academic integrity provided in the Student Handbook and understand the University regulations in relation to Academic Integrity. I am aware of the potential consequences of Academic Misconduct.                                                                                                |                                                         |
+|                                                                                                                                                                                                                                                                                                                                 |                                                         |
+| §  I declare that this work is being submitted on behalf of my group and is all our own, , except where I have stated otherwise.                                                                                                                                                                                                |                                                         |
+|                                                                                                                                                                                                                                                                                                                                 |                                                         |
+| §  No substantial part(s) of the work submitted here has also been submitted by me in other credit bearing assessments courses of study (other than in certain cases of a resubmission of a piece of work), and I acknowledge that if this has been done this may lead to an appropriate sanction.                              |                                                         |
+|                                                                                                                                                                                                                                                                                                                                 |                                                         |
+| §  Where a generative Artificial Intelligence such as ChatGPT has been used I confirm I have abided by both the University guidance and specific requirements as set out in the Student Handbook and the Assessment brief. I have clearly acknowledged the use of any generative                                                |                                                         |
+|                                                                                                                                                                                                                                                                                                                                 |                                                         |
+| Artificial Intelligence in my submission, my reasoning for using it and which generative AI (or AIs) I have used. Except where indicated the work is otherwise entirely my own.                                                                                                                                                 |                                                         |
+|                                                                                                                                                                                                                                                                                                                                 |                                                         |
+| §  I understand that should this piece of work raise concerns requiring investigation in relation to any of points above, it is possible that other work I have submitted for assessment will be checked, even if marks (provisional or confirmed) have been published.                                                         |                                                         |
+|                                                                                                                                                                                                                                                                                                                                 |                                                         |
+| §  Where a proof-reader, paid or unpaid was used, I confirm that the proof-reader was made aware of and has complied with the University’s proofreading policy.**Upon electronic submission of your assessment you will be required to agree to the statements above**                                                          |                                                         |
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------+
+
+## Part 1: Introduction
+
+Our goal was to prepare an e-commerce database, starting with crafting an Entity-Relationship diagram to blueprint our structure. We transformed the diagram into entities using Data Definition Language, laying the groundwork for our database. Synthetic data was then generated and populated into these entities using the Extract, Transform, Load methodology. This involved extracting data from our synthetic datasets, transforming them to fit our schema, and loading it into the respective entities. Our journey also included deep dives into data analysis, uncovering insights that could shape e-commerce strategies.
+
+## Part 2: Database Design and Implementation
+
+### 2.1 E-R Diagram Design
+
+![**Initial E-R Diagram**](First%20Diagram.jpg){fig-align="center" width="420"}
+
+![**Final E-R Diagram**](Final%20Diagram.jpg){fig-align="center" width="546"}
+
+The initial Entity-Relationship (E-R) diagram contained nine entities, interconnected by eleven relationships (Figure 1).
+
+However, deeper examination revealed shortcomings in the initial E-R diagram. When converting it into the schema, the database was incompatible with the third normal form (3NF). Hence, a series of adjustments were made, such as adding and removing entities.
+
+To improve structural integrity, we eliminated the Order, Category, and Ads entities. Order was transformed into a relationship between Customer and Product whereas Category entity was transformed to an attribute under the Product entity to make the synthetic data more realistic. Ads were removed to simplify data generation.
+
+Additionally, several looping relationships were detected. For example, as seen in Figure 1, we included a looping relationship between Supplier, Product and Inventory. This led to unnecessary duplicates. Therefore, we eliminated the direct relationship between Supplier and Inventory. PRODUCT_ID was then used as a linkage. Similarly, a loop between Customers, Payment, and Shipping was resolved.
+
+Finally, non-atomic attributes like SHIPMENT_ADDRESS and DESCRIPTION were addressed. To enhance granularity, more attributes for city, country, and zip-code were added. Moreover, DESCRIPTION was removed due to redundancy with PRODUCT_CATEGORY. PRODUCT_ID was also removed from the Supplier entity as the SUPPLIER_ID was already existing in the Product entity. This enabled us to use Supplier as a starting point for the schema creation. Lastly, INVENTORY_ID was created since it was missing from the Inventory entity.
+
+Following these adjustments, a final E-R diagram was designed (Figure 2) to accommodate a database complying with 3NF. The final diagram comprises six core entities interconnected by five relationships.
+
+### 2.2 SQL Database Schema Creation
+
+In the SQL database schema creation phase, deficiencies in normalization were handled by removing unnecessary entities, redundant relationships, and non-atomic attributes. Consequently, the final schema consists of six tables, each with specified data types for attributes and columns (Figure 4). For example, attributes like SUPPLIER_NAME were designed as text, PRICE as numeric, and CUSTOMER_BIRTHDAY as date. This helps in organizing and managing the data while maintaining consistency and integrity.
+
+The assumptions used for the final E-R diagram and Schema:
+
+1.      A single product may have multiple suppliers.
+
+2.      Products can be stored on multiple shelves depending on quantity.
+
+3.      Customers can order multiple products, and products can be bought by several customers.
+
+4.      A customer can make multiple payments, each associated with one customer.
+
+5.      Each shipment is associated with only one payment.
+
+All relationships between entities are illustrated in Figure 3 and 4.
+
+![**Relationship Set**](Relationship%20Set.jpg){fig-align="center"}
+
+![**Relational Schema**](Relational%20Schema.png){fig-align="center"}
+
+The following step included translating the E-R diagram into a functional SQL database schema, where tables with appropriate datatypes, constraints and keys were created. The SQL code can be seen below.
+
+```{r message = FALSE, warning=FALSE}
+library(dplyr)
+library(lubridate)
+library(ggplot2)
+library(readr)
+library(RSQLite)
+library(DBI)
+library(readxl)
+library(gridExtra)
+```
+
+```{r message = FALSE, warning=FALSE}
+db <- dbConnect(RSQLite::SQLite(), dbname = "e_commerce_database.db")
+```
+
+```{r}
+sql_commands <- c(
+  "CREATE TABLE IF NOT EXISTS Supplier (
+    SUPPLIER_ID VARCHAR(255) PRIMARY KEY NOT NULL,
+    SUPPLIER_NAME VARCHAR(255) NOT NULL,
+    SUPPLIER_PHONE VARCHAR(255),
+    SUPPLIER_EMAIL VARCHAR(255)
+  );",
+  
+  "CREATE TABLE IF NOT EXISTS Product (
+    PRODUCT_ID VARCHAR(255) PRIMARY KEY NOT NULL,
+    PRODUCT_NAME VARCHAR(255) NOT NULL,
+    PRODUCT_CATEGORY VARCHAR(255),
+    PRICE FLOAT NOT NULL,
+    SUPPLIER_ID VARCHAR(255) NOT NULL,
+    FOREIGN KEY(SUPPLIER_ID) REFERENCES Supplier(SUPPLIER_ID)
+  );",
+  
+  "CREATE TABLE IF NOT EXISTS Inventory (
+    INVENTORY_ID VARCHAR(255) PRIMARY KEY NOT NULL,
+    STOCK INTEGER NOT NULL,
+    SHELF_NO VARCHAR(255),
+    PRODUCT_ID VARCHAR(255) NOT NULL,
+    FOREIGN KEY(PRODUCT_ID) REFERENCES Product(PRODUCT_ID)
+  );",
+  
+  "CREATE TABLE IF NOT EXISTS Customer (
+    CUSTOMER_ID VARCHAR(255) PRIMARY KEY NOT NULL,
+    CUSTOMER_FIRSTNAME VARCHAR(255) NOT NULL,
+    CUSTOMER_LASTNAME VARCHAR(255) NOT NULL,
+    CUSTOMER_EMAIL VARCHAR(255),
+    CUSTOMER_PHONE VARCHAR(255),
+    CUSTOMER_BIRTHDAY DATE,
+    CUSTOMER_GENDER VARCHAR(50),
+    SHIPMENT_ID VARCHAR(255),
+    PAYMENT_ID VARCHAR(255)
+  );",
+  
+  "CREATE TABLE IF NOT EXISTS Shipment (
+    SHIPMENT_ID VARCHAR(255) PRIMARY KEY NOT NULL,
+    SHIPMENT_DATE DATE NOT NULL,
+    SHIPMENT_ADDRESS VARCHAR(255) NOT NULL,
+    SHIPMENT_CITY VARCHAR(255) NOT NULL,
+    SHIPMENT_ZIPCODE VARCHAR(255) NOT NULL,
+    SHIPMENT_COUNTRY VARCHAR(255) NOT NULL,
+    CUSTOMER_ID VARCHAR(255) NOT NULL,
+    PRODUCT_ID VARCHAR(255) NOT NULL,
+    FOREIGN KEY(CUSTOMER_ID) REFERENCES Customer(CUSTOMER_ID),
+    FOREIGN KEY(PRODUCT_ID) REFERENCES Product(PRODUCT_ID)
+  );",
+  
+  "CREATE TABLE IF NOT EXISTS Payment (
+    PAYMENT_ID VARCHAR(255) PRIMARY KEY NOT NULL,
+    PAYMENT_METHOD VARCHAR(255) NOT NULL,
+    ORDER_AMOUNT FLOAT NOT NULL,
+    PAYMENT_DATE DATE NOT NULL,
+    BILLING_ADDRESS VARCHAR(255) NOT NULL,
+    BILLING_CITY VARCHAR(255) NOT NULL,
+    BILLING_ZIPCODE VARCHAR(255) NOT NULL,
+    BILLING_COUNTRY VARCHAR(255) NOT NULL,
+    CUSTOMER_ID VARCHAR(255) NOT NULL,
+    PRODUCT_ID VARCHAR(255) NOT NULL,
+    FOREIGN KEY(CUSTOMER_ID) REFERENCES Customer(CUSTOMER_ID),
+    FOREIGN KEY(PRODUCT_ID) REFERENCES Product(PRODUCT_ID)
+  );"
+)
+
+# Execute each SQL command to create the tables
+for(sql_command in sql_commands) {
+  dbExecute(db, sql_command)
+}
+
+```
+
+## Part 3: Data Generation and Validation
+
+### **3.1 Data Generation**
+
+[*Generating Datasets:*]{.underline} We initiated the project by creating datasets from scratch, by leveraging AI platforms and advanced language models such as ChatGPT. A decision was made to generate six distinct datasets tailored to specific entities and additional auxiliary data. Each dataset was chosen to meet the requirements of our database schema and adhere to normalization forms.
+
+[*Product, Category and Supplier Data:*]{.underline} To populate the datasets, we used ChatGPT to generate realistic observations. We generated unique product names paired with relevant categories while supplier information was obtained to match product categories. This ensures the relevance within the dataset. The prompt used for ChatGPT can be seen below.
+
+```{r}
+"I want you to act as an expert in database management and create a 
+comprehensive table for an e-commerce database. The table should include 
+150 unique products spread across 15 categories, with relevant suppliers
+listed for each product. Ensure consistency and relevance between the
+fields in a real-world sense"
+```
+
+[*Customer, Shipping and Payment Information:*]{.underline} Customer, shipping, and payment data were generated using a combination of tools such as Mockaroo and Python scripting. When handling customer data, we generated realistic names by dividing them into first and last names. Python scripting was used to merge these names and append random email domains such as Yahoo and Google to enhance authenticity. Finally, payment and shipping information were generated to include relevant details like payment addresses. The prompts used are seen below.
+
+```{r}
+"I want you to act like an expert in database management, and generate 
+dates ranging from the 1980s to 2015 randomly using Python. Please 
+provide me with a code snippet showcasing how to achieve this task 
+efficiently"
+```
+
+```{r}
+"I want you to act as a database management expert and provide me 
+with a code snippet to merge first and last names, adding a random 
+email domain (Google or Yahoo) to create a new field called email 
+address"
+```
+
+[*Additional Data:*]{.underline} Additional auxiliary data, including fields like date of birth and UK-based phone numbers, were handled, either by enriching them or omitting them if deemed irrelevant to the dataset's objective.
+
+[*Key Placement and Cross-Referencing:*]{.underline} The strategic placement of primary and foreign keys was a critical aspect in our database design. We ensured that all keys were appropriately positioned to establish cohesive relationships between tables. Cross-referencing between entities, particularly among customers, payments, and shipping, was implemented to maintain data integrity and facilitate seamless data retrieval.
+
+### **3.2. Data Import and Quality Assurance**
+
+Following the generation of the datasets, the subsequent step involved loading and populating our tables, using the ETL process. Each dataset is stored in a dataframe for the respective entities.
+
+```{r message = FALSE, warning=FALSE}
+suppliers_data <- read.csv("supplier_ecommerce.csv")
+products_data <- read.csv("products_ecommerce.csv")
+inventories_data <- read.csv("inventory_ecommerce.csv")
+customers_data <- read.csv("customers_ecommerce.csv")
+shipments_data <- read.csv("shipment_ecommerce.csv")
+payments_data <- read.csv("payments_ecommerce.csv")
+
+```
+
+### Data Validation
+
+In our data validation process, we assessed attributes across our datasets to ensure data quality and consistency. Initially, we verified primary key uniqueness. Subsequently, we scrutinized attributes such as names to ensure they're in character format and don't exceed 25 characters. Phone numbers were checked for precisely 9 digits, while email addresses adhere to standard formatting. Shipping details were restricted to specific UK regions. Gender is categorized as male, female, or other. Dates were validated in the dd/mm/yyyy format, and payment methods are aligned with the five options provided by our store.
+
+```{r message = FALSE, warning=FALSE}
+#Data Validation
+
+#Customer check
+
+##customer id
+unique_customer_id <- nrow(customers_data) == length(unique(customers_data$CUSTOMER_ID))
+customers_data <- customers_data[unique_customer_id, ]
+
+validate_customer_id <- function(customer_id) {
+  !is.na(customer_id) && substr(customer_id, 1, 1) == "C" && nchar(customer_id) == 6 && grepl("^[A-Za-z0-9]+$", customer_id)
+}
+
+# Apply the validation function to the CUSTOMER_ID column
+valid_customer_id <- sapply(customers_data$CUSTOMER_ID, validate_customer_id)
+customers_data <- customers_data[valid_customer_id, ]
+
+# Check which entries fail validation
+invalid_entries <- customers_data[!valid_customer_id, "CUSTOMER_ID"]
+
+## Phone Number - Numeric, Length and Uniqueness
+validate_phone_number <- function(phone_number) {
+  all(grepl("^[0-9]{9}$", phone_number) & !duplicated(phone_number))
+}
+
+customers_data$CUSTOMER_PHONE <- as.integer(customers_data$CUSTOMER_PHONE)
+
+# Apply the validation function to the CUSTOMER_PHONE column
+valid_phone_number <- sapply(customers_data$CUSTOMER_PHONE, validate_phone_number)
+invalid_entries <- customers_data[!valid_phone_number, "CUSTOMER_PHONE"]
+customers_data <- customers_data[valid_phone_number, ]
+
+##email
+### Define domain list
+validate_email <- function(email) {
+  domains <- c("gmail.com", "outlook.com", "yahoo.com", "hotmail.com", "icloud.com")
+  all(grepl("@", email) & grepl(paste(domains, collapse="|"), email))
+}
+
+## First Name - Characters and Max Length
+validate_firstname <- function(firstname) {
+  !is.na(firstname) && all(grepl("^[[:alpha:]]+$", firstname)) && nchar(firstname) <= 25
+}
+
+### Apply the validation function to the CUSTOMER_FIRSTNAME column
+valid_firstname <- sapply(customers_data$CUSTOMER_FIRSTNAME, validate_firstname)
+
+### Keep only the rows with valid first names
+customers_data <- customers_data[valid_firstname, ]
+
+## Last Name
+validate_lastname <- function(lastname) {
+  !is.na(lastname) && all(grepl("^[-'[:alpha:][:space:]]+$", lastname)) && nchar(lastname) <= 25
+}
+
+### Apply the validation function to the CUSTOMER_LASTNAME column
+valid_lastname <- sapply(customers_data$CUSTOMER_LASTNAME, validate_lastname)
+
+###check for invalid entries
+invalid_entries <- customers_data[!valid_lastname, "CUSTOMER_LASTNAME"]
+invalid_entries
+
+### Keep only the rows with valid last names
+customers_data <- customers_data[valid_lastname, ]
+
+##Gender check
+
+###function for check
+validate_gender <- function(gender) {
+  !is.na(gender) && gender %in% c("Male", "Female", "Other")
+}
+
+###filtering invalid data
+valid_gender <- sapply(customers_data$CUSTOMER_GENDER, validate_gender)
+customers_data <- customers_data[valid_gender, ]
+
+## Birthday
+validate_date <- function(date) {
+  !is.na(date) && !is.na(as.Date(date, format = "%d/%m/%Y", tryFormats = c("%d/%m/%Y")))
+}
+
+#Products check
+
+##Product ID
+unique_product_id <- nrow(products_data) == length(unique(products_data$PRODUCT_ID))
+
+validate_product_id <- function(product_id) {
+  !is.na(product_id) && substr(product_id, 1, 1) == "P" && nchar(product_id) == 4 && grepl("^[A-Za-z0-9]+$", product_id)
+}
+
+valid_product_id <- sapply(products_data$PRODUCT_ID, validate_product_id)
+products_data <- products_data[valid_product_id, ]
+
+##PRICE
+products_data$PRICE <- as.integer(products_data$PRICE)
+validate_price <- function(price) {
+  !is.na(price) && grepl("^[0-9]{1,10}$", price)
+}
+
+### Apply the validation function to the PRICE column
+valid_price <- sapply(products_data$PRICE, validate_price)
+
+### Check which entries fail validation
+invalid_entries <- products_data[!valid_price, "PRICE"]
+invalid_entries
+products_data <- products_data[valid_price, ]
+
+##Product Category
+validate_category <- function(category) {
+  !is.na(category) && all(grepl("^[-'[:alpha:]&[:space:]]+$", category)) && nchar(category) <= 100
+}
+
+### Apply the validation function to the PRODUCT_CATEGORY column
+valid_category <- sapply(products_data$PRODUCT_CATEGORY, validate_category)
+
+###check for invalid entries
+invalid_entries <- products_data[!valid_category, "PRODUCT_CATEGORY"]
+
+products_data <- products_data[valid_category, ]
+
+##Product name
+validate_product_name <- function(product_name) {
+  !is.na(product_name) && all(grepl("^[-'[:alnum:]&[:space:],.()\"\\\\]+$", product_name)) && nchar(product_name) <= 100
+}
+### Apply the validation function to the PRODUCT_NAME column
+valid_product_name <- sapply(products_data$PRODUCT_NAME, validate_product_name)
+
+###check for invalid entries
+invalid_entries <- products_data[!valid_product_name, "PRODUCT_NAME"]
+invalid_entries
+
+products_data <- products_data[valid_product_name, ]
+
+##Supplier data
+unique_supplier_id <- nrow(suppliers_data) == length(unique(suppliers_data$SUPPLIER_ID))
+
+validate_supplier_id <- function(supplier_id) {
+  !is.na(supplier_id) && substr(supplier_id, 1, 1) == "S" && nchar(supplier_id) == 4 && grepl("^[A-Za-z0-9]+$", supplier_id)
+}
+
+valid_supplier_id <- sapply(suppliers_data$SUPPLIER_ID, validate_supplier_id)
+suppliers_data <- suppliers_data[valid_supplier_id, ]
+
+##Supplier phone
+valid_sphone_number <- sapply(suppliers_data$SUPPLIER_PHONE, validate_phone_number)
+invalid_entries <- suppliers_data[!valid_sphone_number, "SUPPLIER_PHONE"]
+suppliers_data <- suppliers_data[valid_sphone_number, ]
+
+##Supplier email
+
+# Apply the validation function to the SUPPLIER_EMAIL column
+valid_semail <- sapply(suppliers_data$SUPPLIER_EMAIL, validate_email)
+invalid_entries <- suppliers_data[!valid_semail, "SUPPLIER_PHONE"]
+suppliers_data <- suppliers_data[valid_semail, ]
+
+##Supplier name
+validate_supplier_name <- function(name) {
+  !is.na(name) && all(grepl("^[-'[:alpha:]&[:space:],.]+$", name))
+}
+
+### Apply the validation function to the SUPPLIER_NAME column
+valid_supplier_name <- sapply(suppliers_data$SUPPLIER_NAME, validate_supplier_name)
+
+### Check which entries fail validation
+invalid_entries <- suppliers_data[!valid_supplier_name, "SUPPLIER_NAME"]
+suppliers_data <- suppliers_data[valid_supplier_name, ]
+
+#Inventory
+
+##inventory id
+unique_inventory_id <- nrow(inventories_data) == length(unique(inventories_data$INVENTORY_ID))
+
+validate_inventory_id <- function(inventory_id) {
+  !is.na(inventory_id) && substr(inventory_id, 1, 3) == "INV" && nchar(inventory_id) <= 7 && grepl("^[A-Za-z0-9]+$", inventory_id)
+}
+
+valid_inventory_id <- sapply(inventories_data$INVENTORY_ID, validate_inventory_id)
+invalid_entries <- inventories_data[!valid_inventory_id, "INVENTORY_ID"]
+inventories_data <- inventories_data[valid_inventory_id, ]
+
+##stock
+valid_stock <- sapply(inventories_data$STOCK, validate_price)
+invalid_entries <- inventories_data[!valid_stock, "STOCK"]
+inventories_data <- inventories_data[valid_stock, ]
+
+##shelf no.
+validate_shelf_no <- function(shelf_no) {
+  !is.na(shelf_no) && nchar(shelf_no) == 2 && 
+    grepl("^[A-Z][1-9]$", shelf_no)
+}
+
+### Apply the validation function to the SHELF_NO column
+valid_shelf_no <- sapply(inventories_data$SHELF_NO, validate_shelf_no)
+
+### Check which entries fail validation
+invalid_entries <- inventories_data[!valid_shelf_no, "SHELF_NO"]
+inventories_data <- inventories_data[valid_shelf_no, ]
+
+#Shipments
+
+##ID
+unique_shipment_id <- nrow(shipments_data) == length(unique(shipments_data$SHIPMENT_ID))
+
+validate_shipment_id <- function(shipment_id) {
+  !is.na(shipment_id) && substr(shipment_id, 1, 1) == "E" && nchar(shipment_id) <= 10 && grepl("^[A-Za-z0-9]+$", shipment_id)
+}
+
+valid_shipment_id <- sapply(shipments_data$SHIPMENT_ID, validate_shipment_id)
+invalid_entries <- shipments_data[!valid_shipment_id, "SHIPMENT_ID"]
+shipments_data <- shipments_data[valid_shipment_id, ]
+
+## shipment date
+valid_shipment_date <- sapply(shipments_data$SHIPMENT_DATE, validate_date)
+
+# Check which entries fail validation
+invalid_entries <- shipments_data[!valid_shipment_date, "SHIPMENT_DATE"]
+shipments_data <- shipments_data[valid_shipment_date, ]
+
+## shipping city
+unique(shipments_data$SHIPMENT_ZIPCODE)
+
+valid_uk_cities <- c("London", "Birmingham", "Manchester", "Glasgow", "Edinburgh", "Liverpool", "Bristol", "Belfast", "Leeds", "Newcastle upon Tyne", "Sheffield", "Cardiff", "Nottingham", "Southampton", "Oxford", "Cambridge", "Aberdeen", "York", "Brighton", "Portsmouth", "Leicester", "Coventry", "Stoke-on-Trent", "Plymouth", "Wolverhampton", "Derby", "Swansea", "Hull", "Reading", "Preston", "Milton Keynes", "Sunderland", "Norwich", "Luton", "Swindon", "Warrington", "Dudley", "Bournemouth", "Peterborough", "Southend-on-Sea", "Walsall", "Colchester", "Middlesbrough", "Blackburn")
+
+valid_uk_zipcodes <- c("CV35", "NE46", "BS14", "BD23", "RH5", "S33", "CT15", "DN36", "WC1B", "BT66", "LE15", "NN4", "NG22", "TF6", "WC2H", "AB55", "DL10", "SN13", "NG34", "SY4", "LN6", "BS37", "L33", "RG20", "LS6", "AB56", "BS41", "WF9", "B40", "OX12", "NR34", "N3", "DT10", "M14", "M34", "CH48", "G4", "ST20", "NR29", "GL54", "DL8", "NN11", "PH43", "W1F", "SN1", "EC3M", "EH9", "CB4", "SW19", "S8", "LE14", "S1", "PR1", "EH52", "SG4", "LE16", "CT16", "L74", "BT2", "LS9", "SW1E", "B12", "BH21", "KW10", "AB39", "GU32", "EC1V", "OX7", "DN21", "DN22", "IV1", "BD7")
+
+### Function to validate shipment city and zipcode
+validate_shipment_city <- function(city) {
+  return(city %in% valid_uk_cities)
+}
+
+### Function to validate shipment zipcode
+validate_shipment_zipcode <- function(zipcode) {
+  return(zipcode %in% valid_uk_zipcodes)
+}
+
+### Check the validity of each shipment city and zipcode
+valid_city <- sapply(shipments_data$SHIPMENT_CITY, validate_shipment_city)
+valid_zipcode <- sapply(shipments_data$SHIPMENT_ZIPCODE, validate_shipment_zipcode)
+
+# Filter out invalid entries
+invalid_entries <- shipments_data[!valid_city | !valid_zipcode, ]
+
+## Shipment country
+validate_shipment_country <- function(country) {
+  return(country %in% c("UK", "United Kingdom"))
+}
+
+# Check the validity of each shipment country
+valid_country <- sapply(shipments_data$BILLING_COUNTRY, validate_shipment_country)
+
+# Filter out invalid entries
+invalid_entries <- shipments_data[!valid_country, ]
+
+#Payments
+
+##ID
+unique_payment_id <- nrow(payments_data) == length(unique(payments_data$PAYMENT_ID))
+
+validate_payment_id <- function(payment_id) {
+  !is.na(payment_id) && substr(payment_id, 1, 1) == "P" && nchar(payment_id) <= 10 && grepl("^[A-Za-z0-9]+$", payment_id)
+}
+
+valid_payment_id <- sapply(payments_data$PAYMENT_ID, validate_payment_id)
+invalid_entries <- payments_data[!valid_payment_id, "PAYMENT_ID"]
+payments_data <- payments_data[valid_payment_id, ]
+
+## Payment Method
+validate_payment_method <- function(payment_method) {
+  payment_methods <- c("Credit card", "Klarna", "Apple Pay", "PayPal", "Debit card")
+  !is.na(payment_method) && payment_method %in% payment_methods
+}
+
+### Apply the validation function to the PAYMENT_METHOD column
+valid_payment_method <- sapply(payments_data$PAYMENT_METHOD, validate_payment_method)
+
+### Check which entries fail validation
+invalid_entries <- payments_data[!valid_payment_method, "PAYMENT_METHOD"]
+payments_data <- payments_data[valid_payment_method, ]
+
+## Order Amount
+valid_amount <- sapply(payments_data$ORDER_AMOUNT, validate_price)
+invalid_entries <- payments_data[!valid_amount, "ORDER_AMOUNT"]
+payments_data <- payments_data[valid_amount, ]
+
+##Payment Date
+valid_payment_date <- sapply(payments_data$PAYMENT_DATE, validate_date)
+
+# Check which entries fail validation
+invalid_entries <- payments_data[!valid_payment_date, "PAYMENT_DATE"]
+payments_data <- payments_data[valid_payment_date, ]
+
+```
+
+### 3.3 Data Import
+
+Post-validation, the dataframes undergo updates in the corresponding tables via SQL operations. Our process assumes that new data inserted into the tables is presented in dataframes bearing the same filenames as those used in the initial dataframe creation. We developed a function to scrutinize duplicates, primarily focusing on primary keys. If a record already exists, the function abstains from adding redundant entries to the respective table. Only unique entries are appended, ensuring data integrity.
+
+```{r message = FALSE, warning=FALSE}
+#uploading data in the table.
+data_exists <- function(db, table_name, criteria) {
+  query <- paste0("SELECT COUNT(*) FROM ", table_name, " WHERE ", criteria, ";")
+  result <- dbGetQuery(db, query)
+  return(result[[1]] > 0)
+}
+
+# Function to insert data into a database table for each entity
+insert_data <- function(db, table_name, data_frame, unique_column) {
+  for (i in 1:nrow(data_frame)) {
+    # Extract row data
+    row_data <- data_frame[i, ]
+    
+    # Extract unique value for validation
+    unique_value <- row_data[[unique_column]]
+    
+    # Check if data already exists
+    if (data_exists(db, table_name, paste0(unique_column, " = '", unique_value, "'"))) {
+      print(paste("Data with", unique_column, unique_value, "already exists in", table_name, ". Skipping insertion."))
+    } else {
+      # Insert data into the table
+      dbWriteTable(db, table_name, row_data, append = TRUE)
+    }
+  }
+}
+
+#insert_data(db, "Supplier", suppliers_data, "SUPPLIER_ID")
+#insert_data(db, "Product", products_data, "PRODUCT_ID")
+#insert_data(db, "Inventory", inventories_data, "INVENTORY_ID")
+#insert_data(db, "Customer", customers_data, "CUSTOMER_ID")
+#insert_data(db, "Shipment", shipments_data, "SHIPMENT_ID")
+#insert_data(db, "Payment", payments_data, "PAYMENT_ID")
+```
+
+Once the entities were populated, rigorous checks were undertaken to validate compliance with normalization principles, specifically 2NF and 3NF.
+
+Further validation checks are shown below.
+
+```{r}
+# Check for duplicate Customer records
+duplicate_customers_query <- "
+SELECT CUSTOMER_EMAIL, COUNT(*)
+FROM Customer
+GROUP BY CUSTOMER_EMAIL
+HAVING COUNT(*) > 1;"
+duplicate_customers <- dbGetQuery(db, duplicate_customers_query)
+# Print the results
+print("Duplicate Customers:")
+print(duplicate_customers)
+
+# Check for Products without a Category
+products_without_category_query <- "
+SELECT PRODUCT_ID, PRODUCT_NAME
+FROM Product
+WHERE PRODUCT_CATEGORY IS NULL OR PRODUCT_CATEGORY = '';"
+products_without_category <- dbGetQuery(db, products_without_category_query)
+print("Products without a Category:")
+print(products_without_category)
+
+# Check for Suppliers without contact information (both phone and email missing)
+suppliers_without_contact_query <- "
+SELECT SUPPLIER_ID, SUPPLIER_NAME
+FROM Supplier
+WHERE SUPPLIER_PHONE IS NULL AND SUPPLIER_EMAIL IS NULL;"
+suppliers_without_contact <- dbGetQuery(db, suppliers_without_contact_query)
+print("Suppliers without Contact Information:")
+print(suppliers_without_contact)
+
+# Check Inventory for negative stock values
+negative_stock_query <- "
+SELECT PRODUCT_ID, STOCK
+FROM Inventory
+WHERE STOCK < 0;"
+negative_stock <- dbGetQuery(db, negative_stock_query)
+print("Inventory Items with Negative Stock:")
+print(negative_stock)
+```
+
+## Part 4: Data Pipeline Generation
+
+### **4.1 GitHub Repository and Workflow Setup**
+
+linked: https://github.com/AdnanAndar98/MSBA_DM_Group_14
+
+The first task was to set up a GitHub repository, a critical component for managing and version-controlling our project. The objective was straightforward yet foundational: create a centralized repository to house our database files, scripts, and other necessary documents. This was crucial for ensuring that all team members had access to the latest versions of our work and could contribute effectively.
+
+We initiated the project by creating the repository and organizing it to include all relevant material. The repository served as a storage space and as a platform for collaboration. Through Git's version control capabilities, every change was carefully tracked and documented, ensuring a transparent evolution of our project.
+
+### **4.2 Github Actions for Continuous Integration**
+
+Automating data validation and database updates using GitHub Action aimed to streamline our workflow, minimize manual errors, and ensure that our database system was consistently updated with data.
+
+We approached this by setting up workflows triggered by specific events, such as push or pull requests. These automated sequences were designed to perform several critical functions:
+
+-   **Data Validation**: Automatically executing scripts to validate data integrity upon new commits or pullrequests, ensuring consistency.
+
+-   **Database Updates**: Detecting changes related to database files or scripts, then automatically updating it with new data to keep our system current.
+
+-   **Data Analysis**: Automatically running data analysis scripts to assess and derive insights, enhancing our understanding of the eCommerce environment.
+
+### **4.3 Navigating Challenges**
+
+Setting up GitHub Actions presented a steep learning curve, requiring deep documentation and collaborative problem-solving. Additionally, automating R scripts for database management and analysis necessitated planning and testing for seamless workflow integration. Managing a project with six members demanded clear communication and an organized approach to prevent overlaps and conflicts.
+
+## Part 5: Data Analysis and Reporting with Quarto in R
+
+### 5.1 Advance Data Analysis in R
+
+#### 5.1.1. Average Price for each Product Category
+
+```{r message = FALSE, warning=FALSE, echo=FALSE}
+# Retrieve data of average price and product category from table "Product" in our database and save the data in "category_price_summary". Here we order the average price in decreasing order by category to prepare for plotting.
+
+category_price_summary <- dbGetQuery(db, "
+SELECT 
+  PRODUCT_CATEGORY, 
+  AVG(PRICE) AS AveragePrice
+FROM 
+  Product
+GROUP BY 
+  PRODUCT_CATEGORY
+ORDER BY 
+  AveragePrice DESC;")
+
+# Use "category_price_summary" to plot a column chart.
+category_price_summary <- dbGetQuery(db, "
+SELECT 
+  PRODUCT_CATEGORY, 
+  AVG(PRICE) AS AveragePrice
+FROM 
+  Product
+GROUP BY 
+  PRODUCT_CATEGORY
+ORDER BY 
+  AveragePrice DESC;")
+
+ggplot(category_price_summary, aes(x = reorder(PRODUCT_CATEGORY, AveragePrice), y = AveragePrice)) +
+  geom_col(fill = "skyblue") +
+  geom_text(aes(label = round(AveragePrice, 2)), hjust = -0.2, color = "black") +
+  theme_minimal() +
+  coord_flip() + 
+  labs(title = "Figure 5 - Average Price by Product Category",
+       x = "Product Category",
+       y = "Average Price") +
+  ylim(0,2500) 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
+
+As seen in Figure 5, the product category with the highest average price is Jewelery and Accessories, closely followed by Electronics. Understanding these patterns serves as a powerful tool for strategic decision-making.
+
+For example, when considering inventory management, it can help us allocate resources more efficiently, by allocating resources towards high-demand categories and minimizing stockouts.
+
+Furthermore, adjusting prices according to demand trends is essential in unlocking revenue opportunities. Implementing dynamic pricing and/or value-based pricing strategies will allow our platform to capture the customers' willingness to pay premium prices, hence, maximizing profit.
+
+#### 5.1.2. Payment Methods
+
+```{r message = FALSE, warning=FALSE, echo = FALSE}
+# Retrieve data of counts of payment method usage from table "Payment" in our database and save the data in "payment_methods_usage". The counts are generated by function "COUNT()". Here we order the counts in decreasing order by payment method to prepare for plotting.
+
+payment_methods_usage <- dbGetQuery(db, "
+SELECT PAYMENT_METHOD, COUNT(*) AS Frequency
+FROM Payment
+GROUP BY PAYMENT_METHOD
+ORDER BY Frequency DESC"
+)
+
+# Use "payment_methods_usage" to plot a column chart.
+library(RColorBrewer)
+ggplot(payment_methods_usage, aes(x = reorder(PAYMENT_METHOD, -Frequency), y = Frequency)) +
+  geom_col(fill = "steelblue", color = "black") +
+  theme_minimal(base_size = 14) + 
+  labs(title = "Figure 6 - Frequency of Payment Methods",
+       subtitle = "(The total quantity of all payment methods is 1000)",
+       x = "Payment Method",
+       y = "Frequency") +
+  geom_text(aes(label = Frequency), vjust = -0.3, size = 5) + 
+  theme(axis.text.x = element_text(angle = 20, hjust = 1, color = "black"), 
+        axis.title.x = element_text(size = 12, color = "black"), 
+        axis.title.y = element_text(size = 12, color = "black"), 
+        plot.title = element_text(size = 14, face = "bold", color = "darkgreen"), 
+        plot.subtitle = element_text(size = 11, face = "italic", color = "darkgreen")) +
+  scale_y_continuous(limits = c(0, 250), 
+                     breaks = seq(0, 300, by = 50)) 
+
+
+```
+
+```{r, echo = FALSE}
+# Retrieve data of average order amount of each payment method from table "Payment" in our database and save the data in "payment_methods_amounts". The average amounts are generated by function "AVG()". Here we order the average amount in decreasing order by payment method to prepare for plotting.
+
+payment_methods_amounts <- dbGetQuery(db, "
+SELECT PAYMENT_METHOD, AVG(ORDER_AMOUNT) AS AverageAmount
+FROM Payment
+GROUP BY PAYMENT_METHOD
+ORDER BY AverageAmount DESC"
+)
+
+# Use "payment_methods_amounts" to plot a column chart.
+ggplot(payment_methods_amounts, aes(x = reorder(PAYMENT_METHOD, -AverageAmount), y =           AverageAmount, fill = PAYMENT_METHOD)) +
+  geom_col(show.legend = FALSE) + 
+  coord_flip() +  
+  scale_fill_brewer(palette = "Pastel1") + 
+  theme_minimal() + 
+  theme(axis.title.x = element_text(face = "bold", size = 10), 
+        axis.title.y = element_text(face = "bold", size = 10), 
+        axis.text.x = element_text(size = 8), 
+        axis.text.y = element_text(size = 8), 
+        plot.title = element_text(hjust = 0.5, size = 12, face = "bold"), 
+        panel.background = element_rect(colour = "grey50"), 
+        panel.grid.major = element_line(linewidth = 0.5, linetype = 'solid', colour =           "grey90")) + 
+  labs(title = "Figure 7 - Average Order Amount by Payment Method",
+       x = "Payment Method", 
+       y = "Average Order Amount (£)") +
+  geom_text(aes(label = round(AverageAmount)), size = 4)
+```
+
+The payment analysis reveals that customers most commonly use debit cards and PayPal. However, the data shows a balanced distribution across different payment methods.
+
+Figure 7 shows that customers use Klarna and credit cards for higher-value purchases. This implies that there's an inclination towards installment-based payment solutions or credit facilities for larger purchases. This insight can help us improve the overall customer experience.
+
+#### 5.1.3. Quarterly Sales Amount Trend
+
+```{r, echo = FALSE}
+# Here we want to do time series analysis. After retrieving "PAYMENT_DATE" from table "Payment", we correct the format of dates and get "CorrectedDate". Then we extract the year and quarter from the "CorrectedDate". For year, we use the "STRFTIME" function to get the year directly; For quarter, it is calculated by month: We just divide the month number by 3 and round up, prepending 'Q' to indicate it's a quarter. Finally, we aggregate sales amount by year and quarter.
+
+sales_trends <- dbGetQuery(db, "
+WITH CorrectedDates AS (
+  SELECT
+    PAYMENT_ID,
+    CASE
+      WHEN LENGTH(PAYMENT_DATE) = 10 THEN
+        SUBSTR(PAYMENT_DATE, 7, 4) || '-' ||
+        SUBSTR(PAYMENT_DATE, 4, 2) || '-' ||
+        SUBSTR(PAYMENT_DATE, 1, 2)
+      ELSE PAYMENT_DATE
+    END AS CorrectedDate,
+    PAYMENT_METHOD,
+    ORDER_AMOUNT
+  FROM Payment
+  WHERE PAYMENT_DATE IS NOT NULL AND LENGTH(PAYMENT_DATE) = 10
+),
+DateParts AS (
+  SELECT
+    PAYMENT_ID,
+    PAYMENT_METHOD,
+    ORDER_AMOUNT,
+    STRFTIME('%Y', CorrectedDate) AS YEAR,
+    'Q' || CAST((CAST(STRFTIME('%m', CorrectedDate) AS INTEGER) + 2) / 3 AS TEXT) AS QUARTER
+  FROM CorrectedDates
+)
+SELECT
+  YEAR,
+  QUARTER,
+  SUM(ORDER_AMOUNT) AS TotalAmount
+FROM DateParts
+GROUP BY YEAR, QUARTER
+ORDER BY YEAR, QUARTER
+")
+
+# Combine "YEAR" with "QUARTER" together to get a new column named "YearQuarter" to prepare for plotting
+sales_trends$YearQuarter <- with(sales_trends, paste(YEAR, QUARTER))
+
+# Use "sales_trends" to plot a line chart.
+ggplot(sales_trends, aes(x = YearQuarter, y = TotalAmount)) +
+  geom_line(aes(group = 1), colour = "#006400", linewidth = 1) +
+  geom_point(colour = "#ff0000", size = 2) +
+  theme_light(base_size = 14) +
+  labs(title = "Figure 8 - Quarterly Sales Amount Trend",
+       subtitle = "Total sales amount across different quarters",
+       x = "Year and Quarter",
+       y = "Total Sales Amount (£)") +
+  theme(plot.title = element_text(size = 14, face = "bold"),
+        axis.text.x = element_text(angle = 20, hjust = 1, vjust = 1),
+        axis.title.x = element_text(size = 10), 
+        axis.title.y = element_text(size = 10), 
+        legend.position = "none")
+```
+
+The fluctuating sales trends indicate a degree of market volatility and/or shifts in consumer behavior. The initial increase in sales during Q2 2022 suggests potential factors at play, such as seasonal trends and marketing initiatives. Subsequent declines in sales during 2023 Q1 to Q2 reflect challenges such as economic downturns because of COVID-19.
+
+Nonetheless, the recovery in sales during 2023 Q4 indicates the effectiveness of strategic interventions or market adjustments to stimulate demand and regain momentum. Overall, these fluctuations underscore the dynamic nature of the market and the need to remain responsive to changing conditions.
+
+#### 5.1.4. Top 10 Cities with Highest Order Amount
+
+```{r message = FALSE, warning=FALSE, echo = FALSE}
+# Retrieve data of total sales of each city from table "Payment" in our database and save the data in "city_sales". The total sales are generated by function "SUM()". Here we only pick the top10 cities for analysis and order them in decreasing order to prepare for plotting.
+
+city_sales <- dbGetQuery(db, "
+SELECT 
+    BILLING_CITY, 
+    SUM(ORDER_AMOUNT) AS TotalSales
+FROM 
+    Payment
+GROUP BY
+    BILLING_CITY
+ORDER BY 
+    TotalSales DESC
+LIMIT 10"
+)
+
+# Prepare another color to highlight the city with the highest total sales.
+fill_colors <- rep("#E4944D", nrow(city_sales))
+fill_colors[1] <- "lightgreen"
+
+ggplot(city_sales, aes(x = reorder(BILLING_CITY, -TotalSales), y = TotalSales)) +
+  geom_col(aes(fill = BILLING_CITY), color = "black") +
+  geom_text(aes(label = TotalSales), vjust = -0.3, size = 3.5) +
+  scale_fill_manual(values = fill_colors) +
+  theme_minimal(base_size = 12) +
+  labs(title = "Figure 9 - Top 10 Cities by Total Sales", x = "City", y = "Total Sales (£)")+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 12),
+        plot.title = element_text(hjust = 0.5, size = 14, face = "bold"),
+        legend.position = "none") + 
+  scale_y_continuous(breaks = seq(0, 20000, by = 5000)) +
+  ylim(0, 20000)
+
+```
+
+Figure 9 illustrates the top 10 cities by total sales. Aberdeen contributes significantly to sales revenue, nearly reaching £15,000. Aberdeen's robust economy is driven by industries such as oil and gas which could lead to higher purchasing power, thus, more spending.
+
+Leeds, Swindon, Brighton, and London also emerge as noteworthy contributors. Leeds's economy shows strengths in finance and manufacturing while Swindon's retail sector could be the reason for high sales. Finally, London's inclusion among the top contributors is unsurprising given its status as a global financial and commercial hub.
+
+The above analysis provides valuable insights that can be used to optimize operations. For example, localized strategies can be implemented to increase customer engagement.
+
+#### 5.1.5. Customer Segmentation Across Generational Cohorts
+
+```{r message = FALSE, warning=FALSE, echo = FALSE}
+# Retrieve data of customer gender and birthday from table "Customer" in our database and save the data in "customer_age".
+
+customer_age <- dbGetQuery(db, "
+SELECT
+    CUSTOMER_ID,
+    CUSTOMER_GENDER AS Gender,
+    CUSTOMER_BIRTHDAY AS Birthday
+FROM 
+    Customer"
+)
+
+# Calculate customer age using their birthday and name it "Age" as a new column in "customer_age".
+customer_age$Birthday <- mdy(customer_age$Birthday)
+customer_age$Age <- floor(interval(customer_age$Birthday, Sys.Date()) / years(1))
+
+# Use "customer_age" to plot a boxplot.
+ggplot(customer_age, aes(x = Gender, y = Age, fill = Gender)) +
+  geom_boxplot() +
+  theme_minimal() + 
+  labs(title = "Figure 10 - Customer Age Distribution by Gender",
+       x = "Gender",
+       y = "Age") +
+  theme(legend.position = "none",
+        plot.title = element_text(face = "bold", size = 14),
+        axis.title = element_text(size = 12), 
+        axis.text = element_text(size = 10)) + 
+  coord_flip() +
+  scale_y_continuous(breaks = seq(10, 35, by = 2)) 
+```
+
+Figure 10 compares the distribution of customer ages across different genders. The boxplot shows that the mean age for females is 23, whereas for males is 24. The similarity in ages between genders suggests that we effectively target individuals in their late teens and twenties.
+
+This insight presents an opportunity for the company to refine its marketing strategies by tailoring advertisements and commercials to resonate more effectively with the specific audience segment.
+
+#### 5.1.6 Total Stock by Product Category
+
+```{r, echo = FALSE}
+# In this section we try to link the “Inventory” table with the “Product” table based on matching PRODUCT_ID columns. By using "JOIN, we generate a data frame "stock_category" including "TotalStock" from "Inventory" and "Category" from "Product".
+
+stock_category <- dbGetQuery(db, "
+SELECT 
+    p.PRODUCT_CATEGORY AS Category, 
+    SUM(i.STOCK) AS TotalStock
+FROM 
+    Inventory AS i
+JOIN 
+    Product AS p ON i.PRODUCT_ID = p.PRODUCT_ID
+GROUP BY 
+    p.PRODUCT_CATEGORY"
+)
+
+# Use "stock_category" to plot a bar chart.
+library(forcats)
+ggplot(stock_category, aes(x = reorder(Category, TotalStock), y = TotalStock)) +
+  geom_bar(stat = "identity", aes(fill = TotalStock), width = 0.8) +
+  coord_flip() + 
+  scale_fill_gradient(low = "#f4a582", high = "#ca0020", name = "Total Stock") +
+  theme_minimal() +
+  labs(title = "Figure 11 - Total Stock by Product Category",
+       x = "",
+       y = "Total Stock") +
+  theme(legend.position = "top",
+        legend.title = element_text(size = 12), 
+        legend.text = element_text(size = 10),
+        plot.title = element_text(size = 11, face = "bold", hjust = 0.5),
+        axis.title.y = element_text(size = 12, vjust = 2),
+        axis.text.y = element_text(size = 10),
+        axis.ticks.y = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank()) +
+  scale_y_continuous(breaks = seq(0, 300, by = 50))
+
+
+dbDisconnect(db)
+```
+
+Figure 11 represents the total stock quantities across different product categories. Pets, beauty & personal care, and automotive products prove to have the highest stock availability. This suggests that the eCommerce prioritized maintaining inventory levels for these categories, potentially due to their popularity among customers.
+
+On the other hand, sports & outdoors, as well as apparel exhibit the lowest stocks, being almost half compared to the top categories. The limited availability suggests the need to monitor stock levels to ensure customer demand is always met. Insufficient stock can cause disruptions and stockouts which are undesirable in all businesses.
+
+## Part 6: Conclusion
+
+To conclude, this report outlines the comprehensive process of database management. The journey involved various stages including relational database and schema design, synthetic data generation, and automation processes. These were achieved using different tools such as SQL and GitHub.
+
+Lastly, the eCommerce data were analysed to reflect the real-world scenarios about customer behavior, trend sales, payment preferences and inventory management. These insights are crucial in guiding strategic decision-making.

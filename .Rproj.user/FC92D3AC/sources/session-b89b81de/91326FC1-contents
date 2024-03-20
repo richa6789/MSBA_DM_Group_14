@@ -341,17 +341,6 @@ valid_zipcode <- sapply(shipments_data$SHIPMENT_ZIPCODE, validate_shipment_zipco
 # Filter out invalid entries
 invalid_entries <- shipments_data[!valid_city | !valid_zipcode, ]
 
-## Shipment country
-validate_shipment_country <- function(country) {
-  return(country %in% c("UK", "United Kingdom"))
-}
-
-# Check the validity of each shipment country
-valid_country <- sapply(shipments_data$BILLING_COUNTRY, validate_shipment_country)
-
-# Filter out invalid entries
-invalid_entries <- shipments_data[!valid_country, ]
-
 #Payments
 
 ##ID
